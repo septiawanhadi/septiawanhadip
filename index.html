@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portofolio Septiawan Hadi Prasetyo</title>
+  <title id="docTitle">Portofolio Septiawan Hadi Prasetyo</title>
   <meta name="description" content="Portofolio pribadi berisi biodata dan proyek: SagaHealth & Website Profile Sekolah SLB Raudhatul Zannah." />
 
   <!-- Modern fonts -->
@@ -211,7 +211,7 @@
       background: var(--bg);
       box-shadow: var(--inset-deep);
     }
-    .mini strong{ display: block; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .mini strong{ display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
     .chips{
       display:flex;
       flex-wrap: wrap;
@@ -330,7 +330,7 @@
 
     .value{
       margin: 0;
-      color: var(--muted);
+      color: var(--text-muted);
       font-size: 13px;
       line-height: 1.55;
       overflow-wrap: anywhere;
@@ -362,7 +362,7 @@
     }
     .project p{
       margin: 6px 0 0;
-      color: var(--muted);
+      color: var(--text-muted);
       font-size: 13px;
       line-height: 1.6;
     }
@@ -449,9 +449,12 @@
       <div class="hero">
         <div class="hero-inner">
           <div>
-            <div class="badge"><span class="dot"></span> Portofolio • UI/UX • Web • Artikel</div>
+            <div class="badge">
+              <span class="dot"></span> 
+              <span data-lang-id="Portofolio • UI/UX • Web • Artikel" data-lang-en="Portfolio • UI/UX • Web • Articles">Portofolio • UI/UX • Web • Artikel</span>
+            </div>
             <h1>Septiawan Hadi Prasetyo</h1>
-            <p class="subtitle">Junior Development and Research</p>
+            <p class="subtitle" data-lang-id="Junior Development and Research" data-lang-en="Junior Development and Research">Junior Development and Research</p>
 
             <div class="cta">
               <a class="btn primary" href="mailto:septiawanhadi38@gmail.com?subject=Kontak%20dari%20Portofolio" aria-label="Kirim email">
@@ -460,14 +463,24 @@
               </a>
               <a class="btn" href="#portfolio" aria-label="Lihat portofolio">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5V19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M19 12H5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-                Lihat Proyek
+                <span data-lang-id="Lihat Proyek" data-lang-en="View Projects">Lihat Proyek</span>
               </a>
               <button class="btn" type="button" id="copyEmail" aria-label="Salin email">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 8V6.5C8 5.67157 8.67157 5 9.5 5H17.5C18.3284 5 19 5.67157 19 6.5V14.5C19 15.3284 18.3284 16 17.5 16H16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6.5 8H14.5C15.3284 8 16 8.67157 16 9.5V17.5C16 18.3284 15.3284 19 14.5 19H6.5C5.67157 19 5 18.3284 5 17.5V9.5C5 8.67157 5.67157 8 6.5 8Z" stroke="currentColor" stroke-width="1.6"/></svg>
-                Salin Email
+                <span id="btnCopyText" data-lang-id="Salin Email" data-lang-en="Copy Email">Salin Email</span>
+              </button>
+              
+              <!-- Language Switcher Button -->
+              <button class="btn" type="button" id="langToggle" aria-label="Ubah Bahasa">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2 12H22" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span id="langText">English</span>
               </button>
             </div>
-            <p class="subtitle1" style="margin-top: 10px; max-width: 100%; color: var(--muted2);">
+            <p class="subtitle1" style="margin-top: 10px; max-width: 100%;" data-lang-id="Noted: Jika tombol Email tidak membuka aplikasi email, gunakan tombol <b>Salin Email</b> lalu tempel di Gmail/Outlook." data-lang-en="Note: If the Email button does not open your email app, use the <b>Copy Email</b> button and paste it into Gmail/Outlook.">
               Noted: Jika tombol Email tidak membuka aplikasi email, gunakan tombol <b>Salin Email</b> lalu tempel di Gmail/Outlook.
             </p>
           </div>
@@ -475,13 +488,13 @@
           <div class="side">
             <img class="avatar" src="septi.jpeg" alt="Foto Septiawan" />
             <div class="mini">
-              <strong>Highlight Keahlian</strong>
+              <strong data-lang-id="Highlight Keahlian" data-lang-en="Skill Highlights">Highlight Keahlian</strong>
               <div class="chips">
                 <span class="chip">UI/UX</span>
-                <span class="chip">Prototyping</span>
+                <span class="chip" data-lang-id="Prototyping" data-lang-en="Prototyping">Prototyping</span>
                 <span class="chip">Web</span>
-                <span class="chip">Research</span>
-                <span class="chip">Penulisan</span>
+                <span class="chip" data-lang-id="Research" data-lang-en="Research">Research</span>
+                <span class="chip" data-lang-id="Penulisan" data-lang-en="Writing">Penulisan</span>
               </div>
             </div>
           </div>
@@ -492,7 +505,8 @@
     <main class="grid">
       <section class="card">
         <h2>
-          Biodata <span class="pill">Tentang Saya</span>
+          <span data-lang-id="Biodata" data-lang-en="Biography">Biodata</span> 
+          <span class="pill" data-lang-id="Tentang Saya" data-lang-en="About Me">Tentang Saya</span>
         </h2>
 
         <div class="two-col">
@@ -502,7 +516,7 @@
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="1.6"/><path d="M4 20C4 16.6863 7.58172 14 12 14C16.4183 14 20 16.6863 20 20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
               </div>
               <div class="meta">
-                <p class="label">Nama</p>
+                <p class="label" data-lang-id="Nama" data-lang-en="Name">Nama</p>
                 <p class="value">Septiawan Hadi Prasetyo</p>
               </div>
             </li>
@@ -524,8 +538,8 @@
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21S18 16.5 18 11.5C18 8.18629 15.3137 5.5 12 5.5C8.68629 5.5 6 8.18629 6 11.5C6 16.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.6"/><path d="M12 12.5C13.1046 12.5 14 11.6046 14 10.5C14 9.39543 13.1046 8.5 12 8.5C10.8954 8.5 10 9.39543 10 10.5C10 11.6046 10.8954 12.5 12 12.5Z" stroke="currentColor" stroke-width="1.6"/></svg>
               </div>
               <div class="meta">
-                <p class="label">Domisili</p>
-                <p class="value">Ciwidey, Kabupaten Bandung, Jawabarat, Indonesia</p>
+                <p class="label" data-lang-id="Domisili" data-lang-en="Domicile">Domisili</p>
+                <p class="value" data-lang-id="Ciwidey, Kabupaten Bandung, Jawabarat, Indonesia" data-lang-en="Ciwidey, Bandung Regency, West Java, Indonesia">Ciwidey, Kabupaten Bandung, Jawabarat, Indonesia</p>
               </div>
             </li>
 
@@ -534,8 +548,8 @@
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L20 6.5V17.5L12 22L4 17.5V6.5L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 22V12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 6.5L12 12L4 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
               <div class="meta">
-                <p class="label">Keahlian</p>
-                <p class="value">UI/UX Design, Web Development, Penulisan Ilmiah</p>
+                <p class="label" data-lang-id="Keahlian" data-lang-en="Skills">Keahlian</p>
+                <p class="value" data-lang-id="UI/UX Design, Web Development, Penulisan Ilmiah" data-lang-en="UI/UX Design, Web Development, Scientific Writing">UI/UX Design, Web Development, Penulisan Ilmiah</p>
               </div>
             </li>
           </ul>
@@ -547,8 +561,8 @@
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 7H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7 12H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7 17H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6 3H18C19.1046 3 20 3.89543 20 5V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V5C4 3.89543 4.89543 3 6 3Z" stroke="currentColor" stroke-width="1.6"/></svg>
             </div>
             <div class="meta">
-              <p class="label">Ringkasan</p>
-              <p class="value">Menjembatani celah antara kebutuhan pengguna dan kompleksitas teknologi melalui pendekatan berbasis riset. Sebagai pengembang yang menguasai UI/UX dan Web Development, saya mengedepankan Human-Centered Design dalam setiap baris kode dan elemen visual yang saya buat. Terbiasa menangani proyek dengan integrasi sistem pihak ketiga dan manajemen tim yang adaptif, saya berorientasi pada penciptaan produk yang stabil, estetik, dan skalabel.</p>
+              <p class="label" data-lang-id="Ringkasan" data-lang-en="Summary">Ringkasan</p>
+              <p class="value" data-lang-id="Menjembatani celah antara kebutuhan pengguna dan kompleksitas teknologi melalui pendekatan berbasis riset. Sebagai pengembang yang menguasai UI/UX dan Web Development, saya mengedepankan Human-Centered Design dalam setiap baris kode dan elemen visual yang saya buat. Terbiasa menangani proyek dengan integrasi sistem pihak ketiga dan manajemen tim yang adaptif, saya berorientasi pada penciptaan produk yang stabil, estetik, dan skalabel." data-lang-en="Bridging the gap between user needs and technological complexity through a research-based approach. As a developer specializing in UI/UX and Web Development, I prioritize Human-Centered Design in every line of code and visual element I create. Experienced in handling projects with third-party system integrations and adaptive team management, I am oriented toward building stable, aesthetic, and scalable products.">Menjembatani celah antara kebutuhan pengguna dan kompleksitas teknologi melalui pendekatan berbasis riset. Sebagai pengembang yang menguasai UI/UX dan Web Development, saya mengedepankan Human-Centered Design dalam setiap baris kode dan elemen visual yang saya buat. Terbiasa menangani proyek dengan integrasi sistem pihak ketiga dan manajemen tim yang adaptif, saya berorientasi pada penciptaan produk yang stabil, estetik, dan skalabel.</p>
             </div>
           </div>
         </div>
@@ -556,14 +570,15 @@
 
       <section id="portfolio" class="card">
         <h2>
-          Portofolio <span class="pill">Proyek</span>
+          <span data-lang-id="Portofolio" data-lang-en="Portfolio">Portofolio</span> 
+          <span class="pill" data-lang-id="Proyek" data-lang-en="Projects">Proyek</span>
         </h2>
 
         <div class="project" style="margin-bottom: 14px;">
           <div class="project-head">
             <div>
               <h3>1) SagaHealth</h3>
-              <p>Proyek aplikasi kesehatan. Berisi desain UI/UX, repository pengembangan aplikasi, dan penulisan pendukung.</p>
+              <p data-lang-id="Proyek aplikasi kesehatan. Berisi desain UI/UX, repository pengembangan aplikasi, dan penulisan pendukung." data-lang-en="Health application project. Contains UI/UX designs, application development repository, and supporting documentation.">Proyek aplikasi kesehatan. Berisi desain UI/UX, repository pengembangan aplikasi, dan penulisan pendukung.</p>
             </div>
             <span class="pill">Website App</span>
           </div>
@@ -571,7 +586,7 @@
           <div class="links">
             <a class="link" href="https://www.figma.com/proto/uBN4ZNniZwLnaX6oNHdmtl/SAGAHEALTH?node-id=92-93&starting-point-node-id=122%3A8&t=Jkmv4hxAp6mAhRpS-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX Aplikasi SagaHealth di Figma">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H12.5C14.9853 3 17 5.01472 17 7.5C17 9.98528 14.9853 12 12.5 12H9V3Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12H12.5C14.9853 12 17 14.0147 17 16.5C17 18.9853 14.9853 21 12.5 21H9V12Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 3H9V12H7C4.79086 12 3 10.2091 3 8C3 5.79086 4.79086 3 7 3Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 12H9V21H7C4.79086 21 3 19.2091 3 17C3 14.7909 4.79086 12 7 12Z" stroke="currentColor" stroke-width="1.6"/></svg>
-              UI UX Aplikasi (Figma)
+              <span data-lang-id="UI UX Aplikasi (Figma)" data-lang-en="App UI/UX (Figma)">UI UX Aplikasi (Figma)</span>
             </a>
             <a class="link" href="https://drive.google.com/file/d/1S0AQlm2cxpxY5-FkRuZG34DgcVfOk1f3/view?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Repository SagaHealth di Google Drive">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3H14.5L20 8.5V21H7.5V3Z" stroke="currentColor" stroke-width="1.6"/></svg>
@@ -579,7 +594,7 @@
             </a>
             <a class="link" href="https://drive.google.com/drive/folders/1qWlWOjfoRrfwGj52oq9Biy8J09JXzy8D?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Penulisan Pendukung SagaHealth di Google Drive">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3H14.5L20 8.5V21H7.5V3Z" stroke="currentColor" stroke-width="1.6"/></svg>
-              Penulisan Pendukung (Draft)
+              <span data-lang-id="Penulisan Pendukung (Draft)" data-lang-en="Supporting Documents (Draft)">Penulisan Pendukung (Draft)</span>
             </a>
           </div>
         </div>
@@ -588,7 +603,7 @@
           <div class="project-head">
             <div>
               <h3>2) Website Profile Sekolah SLB Raudhatul Zannah</h3>
-              <p>Website profil sekolah untuk menampilkan informasi, program, dan galeri kegiatan dengan tampilan yang ramah pengguna.</p>
+              <p data-lang-id="Website profil sekolah untuk menampilkan informasi, program, dan galeri kegiatan dengan tampilan yang ramah pengguna." data-lang-en="School profile website to display information, programs, and activity galleries with a user-friendly design.">Website profil sekolah untuk menampilkan informasi, program, dan galeri kegiatan dengan tampilan yang ramah pengguna.</p>
             </div>
             <span class="pill">Website App</span>
           </div>
@@ -602,7 +617,7 @@
           <div class="project-head">
             <div>
               <h3>3) Project Event To</h3>
-              <p>Project Event To — repository pengembangan aplikasi/website event.</p>
+              <p data-lang-id="Project Event To — repository pengembangan aplikasi/website event." data-lang-en="Project Event To — event website/application development repository.">Project Event To — repository pengembangan aplikasi/website event.</p>
             </div>
             <span class="pill">Website App</span>
           </div>
@@ -616,7 +631,7 @@
           <div class="project-head">
             <div>
               <h3>4) Project Noto</h3>
-              <p>Project Noto — repository pengembangan aplikasi/website pencatatan/notes.</p>
+              <p data-lang-id="Project Noto — repository pengembangan aplikasi/website pencatatan/notes." data-lang-en="Project Noto — note-taking website/application development repository.">Project Noto — repository pengembangan aplikasi/website pencatatan/notes.</p>
             </div>
             <span class="pill">Desktop App</span>
           </div>
@@ -630,7 +645,7 @@
           <div class="project-head">
             <div>
               <h3>5) Project SafeTana AI</h3>
-              <p>Aplikasi tanggap bencana dan pemeriksaan kesehatan digital berbasis AI dengan integrasi data hazard real-time.</p>
+              <p data-lang-id="Aplikasi tanggap bencana dan pemeriksaan kesehatan digital berbasis AI dengan integrasi data hazard real-time." data-lang-en="AI-based disaster response and digital health checking application with real-time hazard data integration.">Aplikasi tanggap bencana dan pemeriksaan kesehatan digital berbasis AI dengan integrasi data hazard real-time.</p>
             </div>
             <span class="pill">Website App</span>
           </div>
@@ -639,7 +654,7 @@
             <a class="link" href="https://safetana.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Website SafeTana AI">Website</a>
             <a class="link" href="https://drive.google.com/drive/folders/1j_ugjEAoVJOomvJTNCuqJF-Y5jaPIse3?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Penulisan Pendukung SafeTana AI di Google Drive">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3H14.5L20 8.5V21H7.5V3Z" stroke="currentColor" stroke-width="1.6"/></svg>
-              Penulisan Pendukung (Draft)
+              <span data-lang-id="Penulisan Pendukung (Draft)" data-lang-en="Supporting Documents (Draft)">Penulisan Pendukung (Draft)</span>
             </a>
           </div>
         </div>
@@ -648,7 +663,7 @@
           <div class="project-head">
             <div>
               <h3>6) Project SIDIK-TI</h3>
-              <p>Platform integrasi manajemen infrastruktur IT, standarisasi URL masking, dan sistem validasi pengadaan departemen secara real-time.</p>
+              <p data-lang-id="Platform integrasi manajemen infrastruktur IT, standarisasi URL masking, dan sistem validasi pengadaan departemen secara real-time." data-lang-en="IT infrastructure management integration platform, URL masking standardization, and real-time department procurement validation system.">Platform integrasi manajemen infrastruktur IT, standarisasi URL masking, dan sistem validasi pengadaan departemen secara real-time.</p>
             </div>
             <span class="pill">Website App</span>
           </div>
@@ -665,7 +680,7 @@
           UI/UX Case Study <span class="pill">Design</span>
         </h2>
 
-        <p class="subtitle" style="max-width: 100%; margin-bottom: 14px;">Kumpulan desain UI/UX untuk beberapa project.</p>
+        <p class="subtitle" style="max-width: 100%; margin-bottom: 14px;" data-lang-id="Kumpulan desain UI/UX untuk beberapa project." data-lang-en="Collection of UI/UX designs for several projects.">Kumpulan desain UI/UX untuk beberapa project.</p>
 
         <div class="project" style="margin-bottom: 14px;">
           <div class="project-head">
@@ -679,7 +694,7 @@
           <div class="links">
             <a class="link" href="https://www.figma.com/proto/PIPzwMaHh9h9vjC0srGamU/IMK-kelompok-2?node-id=138-896&starting-point-node-id=211%3A9861&t=c6Ioc1MLdg581gMo-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX Website SLB di Figma">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H12.5C14.9853 3 17 5.01472 17 7.5C17 9.98528 14.9853 12 12.5 12H9V3Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12H12.5C14.9853 12 17 14.0147 17 16.5C17 18.9853 14.9853 21 12.5 21H9V12Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 3H9V12H7C4.79086 12 3 10.2091 3 8C3 5.79086 4.79086 3 7 3Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 12H9V21H7C4.79086 21 3 19.2091 3 17C3 14.7909 4.79086 12 7 12Z" stroke="currentColor" stroke-width="1.6"/></svg>
-              File Desain (Figma)
+              <span data-lang-id="File Desain (Figma)" data-lang-en="Design File (Figma)">File Desain (Figma)</span>
             </a>
           </div>
         </div>
@@ -688,7 +703,7 @@
           <div class="project-head">
             <div>
               <h3>UI/UX — Project AgrowUp</h3>
-              <p>Rancangan UI Apps Pertanian</p>
+              <p data-lang-id="Rancangan UI Apps Pertanian" data-lang-en="Agriculture App UI Design">Rancangan UI Apps Pertanian</p>
             </div>
             <span class="pill">UI/UX</span>
           </div>
@@ -696,57 +711,109 @@
           <div class="links">
             <a class="link" href="https://www.figma.com/proto/2qRIobYWNeiQNXX8dXi2ZX/Project-PKM-Kodamas?node-id=81-14&t=MWVmtSi1anjsfoML-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX AgrowUp di Figma">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H12.5C14.9853 3 17 5.01472 17 7.5C17 9.98528 14.9853 12 12.5 12H9V3Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12H12.5C14.9853 12 17 14.0147 17 16.5C17 18.9853 14.9853 21 12.5 21H9V12Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 3H9V12H7C4.79086 12 3 10.2091 3 8C3 5.79086 4.79086 3 7 3Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 12H9V21H7C4.79086 21 3 19.2091 3 17C3 14.7909 4.79086 12 7 12Z" stroke="currentColor" stroke-width="1.6"/></svg>
-              File Desain (Figma)
+              <span data-lang-id="File Desain (Figma)" data-lang-en="Design File (Figma)">File Desain (Figma)</span>
             </a>
           </div>
         </div>
       </section>
 
       <section id="jurnal" class="card">
-        <h2>Jurnal dan Artikel Publikasi <span class="pill">Publikasi</span></h2>
+        <h2>
+          <span data-lang-id="Jurnal dan Artikel Publikasi" data-lang-en="Journals and Articles Publication">Jurnal dan Artikel Publikasi</span> 
+          <span class="pill" data-lang-id="Publikasi" data-lang-en="Publications">Publikasi</span>
+        </h2>
         <ul class="list">
-          <li class="row"><div class="meta"><p class="label">PENGGUNAAN TEKNOLOGI WEARABLE: UNTUK OPTIMALISASI KEBUTUHAN ATLET DAN MASYARAKAT DALAM BEROLAHRAGA (2024)</p><p class="value"><a href="https://share.google/cIGWU3pLw7lsQMdRJ" target="_blank">Link Jurnal</a> • Jurnal Multidisiplin Inovatif</p></div></li>
-          <li class="row"><div class="meta"><p class="label">Audiensi Pemilu BEM Kampus UPI di Cibiru (2025)</p><p class="value"><a href="https://kd-cibiru.upi.edu/index.php/component/content/article/audiensi-pemilu-bem-kampus-upi-di-cibiru?catid=28&Itemid=101" target="_blank">Link Artikel</a> • UPI Cibiru</p></div></li>
-          <li class="row"><div class="meta"><p class="label">Pemilu BEM Tahun 2025 di Kampus UPI Cibiru: MPU, DPPU, dan KPU Siap Jalankan Tugas (2025)</p><p class="value"><a href="https://kd-cibiru.upi.edu/index.php/component/content/article/pemilu-bem-tahun-2025-di-kampus-upi-cibiru-mpu-dppu-dan-kpu-siap-jalankan-tugas?catid=28&Itemid=101" target="_blank">Link Artikel</a> • UPI Cibiru</p></div></li>
+          <li class="row">
+            <div class="meta">
+              <p class="label" data-lang-id="PENGGUNAAN TEKNOLOGI WEARABLE: UNTUK OPTIMALISASI KEBUTUHAN ATLET DAN MASYARAKAT DALAM BEROLAHRAGA (2024)" data-lang-en="THE USE OF WEARABLE TECHNOLOGY: FOR OPTIMIZATION OF ATHLETE AND PUBLIC NEEDS IN SPORTS (2024)">PENGGUNAAN TEKNOLOGI WEARABLE: UNTUK OPTIMALISASI KEBUTUHAN ATLET DAN MASYARAKAT DALAM BEROLAHRAGA (2024)</p>
+              <p class="value"><a href="https://share.google/cIGWU3pLw7lsQMdRJ" target="_blank"><span data-lang-id="Link Jurnal" data-lang-en="Journal Link">Link Jurnal</span></a> • Jurnal Multidisiplin Inovatif</p>
+            </div>
+          </li>
+          <li class="row">
+            <div class="meta">
+              <p class="label" data-lang-id="Audiensi Pemilu BEM Kampus UPI di Cibiru (2025)" data-lang-en="BEM Election Audience at UPI Cibiru Campus (2025)">Audiensi Pemilu BEM Kampus UPI di Cibiru (2025)</p>
+              <p class="value"><a href="https://kd-cibiru.upi.edu/index.php/component/content/article/audiensi-pemilu-bem-kampus-upi-di-cibiru?catid=28&Itemid=101" target="_blank"><span data-lang-id="Link Artikel" data-lang-en="Article Link">Link Artikel</span></a> • UPI Cibiru</p>
+            </div>
+          </li>
+          <li class="row">
+            <div class="meta">
+              <p class="label" data-lang-id="Pemilu BEM Tahun 2025 di Kampus UPI Cibiru: MPU, DPPU, dan KPU Siap Jalankan Tugas (2025)" data-lang-en="2025 BEM Election at UPI Cibiru Campus: MPU, DPPU, and KPU Ready to Execute Duties (2025)">Pemilu BEM Tahun 2025 di Kampus UPI Cibiru: MPU, DPPU, dan KPU Siap Jalankan Tugas (2025)</p>
+              <p class="value"><a href="https://kd-cibiru.upi.edu/index.php/component/content/article/pemilu-bem-tahun-2025-di-kampus-upi-cibiru-mpu-dppu-dan-kpu-siap-jalankan-tugas?catid=28&Itemid=101" target="_blank"><span data-lang-id="Link Artikel" data-lang-en="Article Link">Link Artikel</span></a> • UPI Cibiru</p>
+            </div>
+          </li>
         </ul>
       </section>
 
       <footer>
-        <p>© 2026 Portofolio Pribadi • Dibuat dengan HTML sederhana</p>
+        <p data-lang-id="© 2026 Portofolio Pribadi • Dibuat dengan HTML sederhana" data-lang-en="© 2026 Personal Portfolio • Built with simple HTML">© 2026 Portofolio Pribadi • Dibuat dengan HTML sederhana</p>
       </footer>
     </main>
   </div>
+
   <script>
-    // Fallback: beberapa browser/perangkat memblokir mailto jika tidak ada aplikasi email default.
-    // Tombol ini membantu user tetap bisa menghubungi dengan menyalin alamat email.
+    // --- Logika Fallback Salin Email ---
     (function () {
       const email = 'septiawanhadi38@gmail.com';
       const btn = document.getElementById('copyEmail');
+      const btnText = document.getElementById('btnCopyText');
       if (!btn) return;
 
       btn.addEventListener('click', async () => {
         try {
           await navigator.clipboard.writeText(email);
-          const originalText = btn.innerHTML;
-          btn.innerHTML = 'Tersalin ✓';
+          const originalText = btnText.innerHTML;
+          btnText.innerHTML = window.currentLang === 'en' ? 'Copied ✓' : 'Tersalin ✓';
           btn.style.boxShadow = 'var(--inset-sm)';
           btn.style.color = 'var(--accent-secondary)';
           setTimeout(() => {
-            btn.innerHTML = originalText;
+            btnText.innerHTML = originalText;
             btn.style.boxShadow = '';
             btn.style.color = '';
           }, 2000);
         } catch (e) {
-          // fallback
           const temp = document.createElement('textarea');
           temp.value = email;
           document.body.appendChild(temp);
           temp.select();
           document.execCommand('copy');
           document.body.removeChild(temp);
-          btn.innerHTML = 'Tersalin ✓';
-          setTimeout(() => (btn.innerHTML = 'Salin Email'), 2000);
+          btnText.innerHTML = window.currentLang === 'en' ? 'Copied ✓' : 'Tersalin ✓';
+          setTimeout(() => {
+            btnText.innerHTML = window.currentLang === 'en' ? 'Copy Email' : 'Salin Email';
+          }, 2000);
         }
+      });
+    })();
+
+    // --- Logika Toggle Multibahasa ---
+    (function () {
+      const langToggle = document.getElementById('langToggle');
+      const langText = document.getElementById('langText');
+      const docTitle = document.getElementById('docTitle');
+      window.currentLang = 'id';
+
+      const translatableElements = document.querySelectorAll('[data-lang-en]');
+
+      if (!langToggle) return;
+
+      langToggle.addEventListener('click', () => {
+        window.currentLang = window.currentLang === 'id' ? 'en' : 'id';
+        
+        // Perbarui teks tombol toggle
+        langText.innerText = window.currentLang === 'id' ? 'English' : 'Indonesia';
+
+        // Lakukan perulangan dan ganti konten teks
+        translatableElements.forEach(el => {
+          const targetText = el.getAttribute(`data-lang-${window.currentLang}`);
+          if (targetText) {
+            el.innerHTML = targetText;
+          }
+        });
+
+        // Perbarui Judul Dokumen (Tab Browser)
+        docTitle.innerText = window.currentLang === 'id' 
+          ? "Portofolio Septiawan Hadi Prasetyo" 
+          : "Septiawan Hadi Prasetyo's Portfolio";
       });
     })();
   </script>
