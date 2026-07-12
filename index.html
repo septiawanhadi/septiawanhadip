@@ -469,7 +469,10 @@
       gap: 8px;
     }
     .chip {
-      padding: 8px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.06);
@@ -479,12 +482,22 @@
       white-space: nowrap;
       transition: var(--transition);
     }
+    .chip svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+      color: var(--accent-secondary);
+      transition: var(--transition);
+    }
     .chip:hover {
-      color: var(--accent-cyan);
+      color: var(--accent-secondary);
       border-color: var(--accent-secondary);
       background: rgba(6, 182, 212, 0.08);
       box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
       transform: translateY(-1px);
+    }
+    .chip:hover svg {
+      color: #22d3ee;
     }
 
     /* SECTIONS */
@@ -797,6 +810,24 @@
       }
     }
   
+    /* PROFILE INTRO PARAGRAPH */
+    .profile-intro {
+      margin: 0 0 0;
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--text-muted);
+      padding: 20px 24px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-left: 3px solid var(--accent);
+    }
+
+    .profile-intro strong {
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
     /* CERTIFICATE GRID & CARDS */
     .cert-grid {
       display: grid;
@@ -991,6 +1022,297 @@
       border: none;
       display: block;
     }
+
+    /* PROFILE GRID & DRIPCODE CARD */
+    .profile-grid {
+      display: grid;
+      gap: 24px;
+      margin-top: 24px;
+      grid-template-columns: 1fr;
+    }
+    
+    @media (min-width: 900px) {
+      .profile-grid {
+        grid-template-columns: 1.35fr 1fr;
+      }
+    }
+
+    .dripcode-card {
+      display: flex;
+      flex-direction: column;
+      background: radial-gradient(circle at top right, rgba(6, 182, 212, 0.06) 0%, rgba(13, 18, 30, 0.4) 100%);
+      border: 1px solid rgba(6, 182, 212, 0.15) !important;
+      box-shadow: var(--shadow-glass), 0 0 20px rgba(6, 182, 212, 0.05);
+      position: relative;
+      overflow: hidden;
+      padding: 32px;
+      border-radius: var(--radius-lg);
+    }
+    
+    .dripcode-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-secondary) 100%);
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+    }
+
+    .dripcode-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      font-size: 10px;
+      font-weight: 700;
+      color: #22d3ee;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      width: fit-content;
+      margin-bottom: 20px;
+    }
+    
+    .dripcode-badge .pulse-cyan {
+      width: 6px;
+      height: 6px;
+      background-color: #22d3ee;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #22d3ee;
+      animation: pulse-cyan-anim 1.8s infinite;
+    }
+    
+    @keyframes pulse-cyan-anim {
+      0% { transform: scale(0.9); opacity: 1; }
+      50% { transform: scale(1.3); opacity: 0.4; }
+      100% { transform: scale(0.9); opacity: 1; }
+    }
+
+    .dripcode-logo {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-weight: 800;
+      font-size: 32px;
+      letter-spacing: -0.03em;
+      margin: 0 0 6px 0;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .dripcode-logo span {
+      background: linear-gradient(135deg, #fff 30%, #22d3ee 80%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .dripcode-logo svg {
+      width: 28px;
+      height: 28px;
+      color: #22d3ee;
+      filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.4));
+    }
+
+    .dripcode-tagline {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent-secondary);
+      margin: 0 0 20px 0;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .dripcode-pitch {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin: 0 0 24px 0;
+      line-height: 1.7;
+      border-left: 2px solid rgba(6, 182, 212, 0.3);
+      padding-left: 14px;
+      font-style: italic;
+    }
+
+    .dripcode-features {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .dripcode-feature-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .dripcode-feature-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-sm);
+      background: rgba(6, 182, 212, 0.08);
+      border: 1px solid rgba(6, 182, 212, 0.15);
+      display: grid;
+      place-items: center;
+      color: #22d3ee;
+      flex-shrink: 0;
+    }
+
+    .dripcode-feature-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .dripcode-feature-text {
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .dripcode-feature-text strong {
+      display: block;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+    
+    .dripcode-feature-text span {
+      color: var(--text-muted);
+    }
+    
+    .dripcode-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #0891b2 0%, #0284c7 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      border: none;
+      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.25);
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      margin-top: auto;
+    }
+
+    .dripcode-cta-btn:hover {
+      background: linear-gradient(135deg, #22d3ee 0%, #0ea5e9 100%);
+      box-shadow: 0 6px 20px rgba(6, 182, 212, 0.45), 0 0 10px rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+      color: #fff;
+    }
+    
+    .dripcode-cta-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* DRIPCODE FLOATING PROMO */
+    .dripcode-widget {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      width: 320px;
+      background: rgba(10, 15, 30, 0.85);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: var(--radius-md);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(99, 102, 241, 0.15);
+      padding: 16px 20px 16px 16px;
+      backdrop-filter: blur(12px);
+      z-index: 998;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      animation: slideInWidget 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+    
+    @keyframes slideInWidget {
+      from { transform: translateX(-50px) translateY(50px); opacity: 0; }
+      to { transform: translateX(0) translateY(0); opacity: 1; }
+    }
+
+    .dripcode-widget:hover {
+      border-color: var(--accent-secondary);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 45px rgba(0, 0, 0, 0.6), 0 0 30px rgba(6, 182, 212, 0.25);
+    }
+
+    .dripcode-badge {
+      align-self: flex-start;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: var(--accent-light);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .dripcode-badge svg {
+      width: 10px;
+      height: 10px;
+      color: var(--accent-secondary);
+    }
+
+    .dripcode-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dripcode-desc {
+      font-size: 12px;
+      line-height: 1.55;
+      color: var(--text-muted);
+      margin: 0;
+    }
+
+    .dripcode-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: var(--transition);
+      z-index: 2;
+    }
+
+    .dripcode-close:hover {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #ef4444;
+    }
+    
+    @media (max-width: 768px) {
+      .dripcode-widget {
+        bottom: 16px;
+        left: 16px;
+        width: calc(100% - 32px);
+      }
+    }
 </style>
 </head>
 
@@ -1077,8 +1399,14 @@
 
       <main class="grid">
         <section class="card">
-          <h2>
-            <span data-lang-id="Biodata" data-lang-en="Biography">Biodata</span> 
+
+          <!-- INTRO PARAGRAPH -->
+          <p class="profile-intro" data-lang-id="Saya mahasiswa aktif Universitas Pendidikan Indonesia (UPI) semester 7, saat ini sedang menempuh program magang &mdash; dan baru saja menyelesaikan magang di <strong>Dinas Komunikasi dan Informatika Kabupaten Bandung</strong> sebagai <strong>Fullstack Developer</strong>. Saya senang membangun aplikasi secara menyeluruh, mulai dari antarmuka pengguna (frontend) hingga logika server (backend), termasuk integrasi sistem pihak ketiga &mdash; terutama yang berkaitan dengan <strong>kecerdasan buatan (AI)</strong>." data-lang-en="I am an active student at Universitas Pendidikan Indonesia (UPI) in my 7th semester, currently on an internship program &mdash; and have just completed an internship at <strong>Diskominfo Kab. Bandung</strong> as a <strong>Fullstack Developer</strong>. I enjoy building applications end-to-end, from the user interface (frontend) to server-side logic (backend), including third-party system integrations &mdash; especially those related to <strong>Artificial Intelligence (AI)</strong>.">
+            Saya mahasiswa aktif <strong>Universitas Pendidikan Indonesia (UPI)</strong> semester 7, saat ini sedang menempuh program magang &mdash; dan baru saja menyelesaikan magang di <strong>Dinas Komunikasi dan Informatika Kabupaten Bandung</strong> sebagai <strong>Fullstack Developer</strong>. Saya senang membangun aplikasi secara menyeluruh, mulai dari antarmuka pengguna (frontend) hingga logika server (backend), termasuk integrasi sistem pihak ketiga &mdash; terutama yang berkaitan dengan <strong>kecerdasan buatan (AI)</strong>.
+          </p>
+
+          <h2 style="margin-top: 28px;">
+            <span data-lang-id="Biodata" data-lang-en="Biography">Biodata</span>
             <span class="pill" data-lang-id="Tentang Saya" data-lang-en="About Me">Tentang Saya</span>
           </h2>
   
@@ -1122,38 +1450,61 @@
                 </div>
                 <div class="meta">
                   <p class="label" data-lang-id="Keahlian" data-lang-en="Skills">Keahlian</p>
-                  <p class="value" data-lang-id="UI/UX Design, Web Development, Penulisan Ilmiah" data-lang-en="UI/UX Design, Web Development, Scientific Writing">UI/UX Design, Web Development, Penulisan Ilmiah</p>
+                  <p class="value" data-lang-id="UI/UX Design, Web, Mobile and AI Development, Penulisan Ilmiah" data-lang-en="UI/UX Design, Web, Mobile and AI Development, Scientific Writing">UI/UX Design, Web, Mobile and AI Development, Scientific Writing</p>
                 </div>
               </li>
             </ul>
           </div>
   
-          <div style="margin-top: 14px;">
-            <div class="row" style="align-items: center;">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 7H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7 12H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7 17H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6 3H18C19.1046 3 20 3.89543 20 5V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V5C4 3.89543 4.89543 3 6 3Z" stroke="currentColor" stroke-width="1.6"/></svg>
-              </div>
-              <div class="meta">
-                <p class="label" data-lang-id="Ringkasan" data-lang-en="Summary">Ringkasan</p>
-                <p class="value" data-lang-id="Menjembatani celah antara kebutuhan pengguna dan kompleksitas teknologi melalui pendekatan berbasis riset. Sebagai pengembang yang menguasai UI/UX dan Web Development, saya mengedepankan Human-Centered Design dalam setiap baris kode dan elemen visual yang saya buat. Terbiasa menangani proyek dengan integrasi sistem pihak ketiga dan manajemen tim yang adaptif, saya berorientasi pada penciptaan produk yang stabil, estetik, dan skalabel." data-lang-en="Bridging the gap between user needs and technological complexity through a research-based approach. As a developer specializing in UI/UX and Web Development, I prioritize Human-Centered Design in every line of code and visual element I create. Experienced in handling projects with third-party system integrations and adaptive team management, I am oriented toward building stable, aesthetic, and scalable products.">Menjembatani celah antara kebutuhan pengguna dan kompleksitas teknologi melalui pendekatan berbasis riset. Sebagai pengembang yang menguasai UI/UX dan Web Development, saya mengedepankan Human-Centered Design dalam setiap baris kode dan elemen visual yang saya buat. Terbiasa menangani proyek dengan integrasi sistem pihak ketiga dan manajemen tim yang adaptif, saya berorientasi pada penciptaan produk yang stabil, estetik, dan skalabel.</p>
-              </div>
-            </div>
-          </div>
+
         </div>
 
         <!-- Highlight Keahlian -->
         <div style="margin-top: 20px;">
-          <p class="label" style="margin: 0 0 12px;" data-lang-id="Highlight Keahlian" data-lang-en="Skill Highlights">Highlight Keahlian</p>
-          <div class="chips">
-            <span class="chip">UI/UX Design</span>
-            <span class="chip">Prototyping</span>
-            <span class="chip">Web Development</span>
-            <span class="chip" data-lang-id="Riset" data-lang-en="Research">Riset</span>
-            <span class="chip" data-lang-id="Penulisan Ilmiah" data-lang-en="Scientific Writing">Penulisan Ilmiah</span>
-            <span class="chip">Figma</span>
-            <span class="chip">Human-Centered Design</span>
+          <p class="label" style="margin: 0 0 16px;" data-lang-id="Highlight Keahlian" data-lang-en="Skill Highlights">Highlight Keahlian</p>
+
+          <!-- Design & Frontend -->
+          <p style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent-secondary); margin: 0 0 8px; font-weight:700;" data-lang-id="Desain & Frontend" data-lang-en="Design & Frontend">Desain &amp; Frontend</p>
+          <div class="chips" style="margin-bottom: 16px;">
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M6.3 6.3a8 8 0 0 0 0 11.31m11.4-11.4a8 8 0 0 1 0 11.4M3 12h2m14 0h2M12 3v2m0 14v2"/></svg>UI/UX Design</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 0 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/></svg>Figma</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>Prototyping</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Human-Centered Design</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><ellipse cx="12" cy="12" rx="10" ry="4"/></svg>React Native</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>Expo</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>HTML / CSS / JS</span>
           </div>
-        </div>
+
+          <!-- Backend & Fullstack -->
+          <p style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent-secondary); margin: 0 0 8px; font-weight:700;" data-lang-id="Backend & Fullstack" data-lang-en="Backend & Fullstack">Backend &amp; Fullstack</p>
+          <div class="chips" style="margin-bottom: 16px;">
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="2" y1="20" x2="22" y2="20"/><line x1="12" y1="17" x2="12" y2="20"/></svg>Fullstack Development</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>REST API</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>SQL / Database</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9v3h14V9c0-3.87-3.13-7-7-7z"/><path d="M5 12v3c0 3.87 3.13 7 7 7s7-3.13 7-7v-3"/><circle cx="9" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1" fill="currentColor" stroke="none"/></svg>Python</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>IT Infrastructure</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>System Integration</span>
+          </div>
+
+          <!-- AI, Data & Cloud -->
+          <p style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent-secondary); margin: 0 0 8px; font-weight:700;" data-lang-id="AI, Data & Cloud" data-lang-en="AI, Data & Cloud">AI, Data &amp; Cloud</p>
+          <div class="chips" style="margin-bottom: 16px;">
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/><circle cx="9" cy="14" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="14" r="1" fill="currentColor" stroke="none"/></svg>AI Integration</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Machine Learning</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Data Science</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>Prompt Engineering</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/><path d="M13 11l-4 6m4 0l-4-6"/></svg>Gen AI (Azure)</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9z"/></svg>Google Cloud</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Microsoft Fabric</span>
+          </div>
+
+          <!-- Research & Writing -->
+          <p style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent-secondary); margin: 0 0 8px; font-weight:700;" data-lang-id="Riset & Penulisan" data-lang-en="Research & Writing">Riset &amp; Penulisan</p>
+          <div class="chips">
+            <span class="chip" data-lang-id="Riset" data-lang-en="Research"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Riset</span>
+            <span class="chip" data-lang-id="Penulisan Ilmiah" data-lang-en="Scientific Writing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>Penulisan Ilmiah</span>
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Financial Literacy</span>
+          </div>
         </section>
       </main>
     </div>
@@ -1177,18 +1528,9 @@
             </div>
   
             <div class="links">
-              <a class="link" href="https://www.figma.com/proto/uBN4ZNniZwLnaX6oNHdmtl/SAGAHEALTH?node-id=92-93&starting-point-node-id=122%3A8&t=Jkmv4hxAp6mAhRpS-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX Aplikasi SagaHealth di Figma">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H12.5C14.9853 3 17 5.01472 17 7.5C17 9.98528 14.9853 12 12.5 12H9V3Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12H12.5C14.9853 12 17 14.0147 17 16.5C17 18.9853 14.9853 21 12.5 21H9V12Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 3H9V12H7C4.79086 12 3 10.2091 3 8C3 5.79086 4.79086 3 7 3Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 12H9V21H7C4.79086 21 3 19.2091 3 17C3 14.7909 4.79086 12 7 12Z" stroke="currentColor" stroke-width="1.6"/></svg>
-                <span data-lang-id="UI UX Aplikasi (Figma)" data-lang-en="App UI/UX (Figma)">UI UX Aplikasi (Figma)</span>
-              </a>
-              <a class="link" href="https://drive.google.com/file/d/1S0AQlm2cxpxY5-FkRuZG34DgcVfOk1f3/view?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Repository SagaHealth di Google Drive">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3H14.5L20 8.5V21H7.5V3Z" stroke="currentColor" stroke-width="1.6"/></svg>
-                Repository (Drive)
-              </a>
-              <a class="link" href="https://drive.google.com/drive/folders/1qWlWOjfoRrfwGj52oq9Biy8J09JXzy8D?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Penulisan Pendukung SagaHealth di Google Drive">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3H14.5L20 8.5V21H7.5V3Z" stroke="currentColor" stroke-width="1.6"/></svg>
-                <span data-lang-id="Penulisan Pendukung (Draft)" data-lang-en="Supporting Documents (Draft)">Penulisan Pendukung (Draft)</span>
-              </a>
+              <a class="link" href="https://www.figma.com/proto/uBN4ZNniZwLnaX6oNHdmtl/SAGAHEALTH?node-id=92-93&starting-point-node-id=122%3A8&t=Jkmv4hxAp6mAhRpS-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX SagaHealth di Figma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 0 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/></svg><span data-lang-id="UI UX (Figma)" data-lang-en="App UI/UX (Figma)">UI UX (Figma)</span></a>
+              <a class="link" href="https://drive.google.com/file/d/1S0AQlm2cxpxY5-FkRuZG34DgcVfOk1f3/view?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Repository SagaHealth di Google Drive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19H2l4-8h12l4 8z"/><path d="M6.5 11L12 2l5.5 9"/></svg><span>Repository (Drive)</span></a>
+              <a class="link" href="https://drive.google.com/drive/folders/1qWlWOjfoRrfwGj52oq9Biy8J09JXzy8D?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Penulisan Pendukung SagaHealth"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-lang-id="Penulisan Pendukung (Draft)" data-lang-en="Supporting Documents (Draft)">Penulisan Pendukung (Draft)</span></a>
             </div>
           </div>
   
@@ -1202,7 +1544,7 @@
             </div>
   
             <div class="links">
-              <a class="link" href="https://slbraudhatulzannah.biz.id" target="_blank" rel="noopener noreferrer" aria-label="Website SLB Raudhatul Zannah">Website</a>
+              <a class="link" href="https://slbraudhatulzannah.biz.id" target="_blank" rel="noopener noreferrer" aria-label="Website SLB Raudhatul Zannah"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span data-lang-id="Buka Website" data-lang-en="Open Website">Buka Website</span></a>
             </div>
           </div>
                 
@@ -1216,7 +1558,7 @@
             </div>
   
             <div class="links">
-              <a class="link" href="https://github.com/nabilaaabill/evenTO.git" target="_blank" rel="noopener noreferrer" aria-label="Repositories Project Event To di GitHub">Repositories (GitHub)</a>
+              <a class="link" href="https://github.com/nabilaaabill/evenTO.git" target="_blank" rel="noopener noreferrer" aria-label="Repo Event To di GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg><span>Repositories (GitHub)</span></a>
             </div>
           </div>
   
@@ -1230,7 +1572,7 @@
             </div>
   
             <div class="links">
-              <a class="link" href="https://github.com/gilangrp/noto.git" target="_blank" rel="noopener noreferrer" aria-label="Repositories Project Noto di GitHub">Repositories (GitHub)</a>
+              <a class="link" href="https://github.com/gilangrp/noto.git" target="_blank" rel="noopener noreferrer" aria-label="Repo Project Noto di GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg><span>Repositories (GitHub)</span></a>
             </div>
           </div>
   
@@ -1244,11 +1586,8 @@
             </div>
   
             <div class="links">
-              <a class="link" href="https://safetana.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Website SafeTana AI">Website</a>
-              <a class="link" href="https://drive.google.com/drive/folders/1j_ugjEAoVJOomvJTNCuqJF-Y5jaPIse3?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Penulisan Pendukung SafeTana AI di Google Drive">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3H14.5L20 8.5V21H7.5V3Z" stroke="currentColor" stroke-width="1.6"/></svg>
-                <span data-lang-id="Penulisan Pendukung (Draft)" data-lang-en="Supporting Documents (Draft)">Penulisan Pendukung (Draft)</span>
-              </a>
+              <a class="link" href="https://safetana.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Website SafeTana AI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span data-lang-id="Buka Website" data-lang-en="Open Website">Buka Website</span></a>
+              <a class="link" href="https://drive.google.com/drive/folders/1j_ugjEAoVJOomvJTNCuqJF-Y5jaPIse3?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Penulisan Pendukung SafeTana AI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span data-lang-id="Penulisan Pendukung (Draft)" data-lang-en="Supporting Documents (Draft)">Penulisan Pendukung (Draft)</span></a>
             </div>
           </div>
   
@@ -1262,10 +1601,26 @@
             </div>
   
             <div class="links">
-              <a class="link" href="http://sidik-ti.biz.id" target="_blank" rel="noopener noreferrer" aria-label="Website SIDIK-TI">Website</a>
+              <a class="link" href="http://sidik-ti.biz.id" target="_blank" rel="noopener noreferrer" aria-label="Website SIDIK-TI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span data-lang-id="Buka Website" data-lang-en="Open Website">Buka Website</span></a>
+            </div>
+          </div>
+
+          <div class="project" style="margin-top: 14px;">
+            <div class="project-head">
+              <div>
+                <h3>7) UMKM Pintar Nusantara Berbasis AI</h3>
+                <p data-lang-id="Aplikasi Android manajemen keuangan dan manajemen tanggal untuk inventory UMKM, dilengkapi dengan integrasi kecerdasan buatan (AI) untuk analisis dan rekomendasi bisnis." data-lang-en="Android application for financial management and date-based inventory management for SMEs, powered by AI integration for business analysis and recommendations.">Aplikasi Android manajemen keuangan dan manajemen tanggal untuk inventory UMKM, dilengkapi dengan integrasi kecerdasan buatan (AI) untuk analisis dan rekomendasi bisnis.</p>
+              </div>
+              <span class="pill">Android App</span>
+            </div>
+
+            <div class="links">
+              <a class="link" href="https://github.com/septiawanhadi/UMKM-Pintar-Nusantara.git" target="_blank" rel="noopener noreferrer" aria-label="Repo UMKM Pintar Nusantara di GitHub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg><span>Repositories (GitHub)</span></a>
+              <a class="link" href="https://expo.dev/accounts/septiawanhadiprasetyos-team/projects/umkm-pintar-nusantara/builds/e6a815bb-4e88-4619-b85a-c0f51262aa45" target="_blank" rel="noopener noreferrer" aria-label="Build UMKM Pintar Nusantara di Expo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg><span>Build APK (Expo)</span></a>
             </div>
           </div>
         </section>
+
   
         <section id="uiux" class="card">
           <h2>
@@ -1284,10 +1639,7 @@
             </div>
   
             <div class="links">
-              <a class="link" href="https://www.figma.com/proto/PIPzwMaHh9h9vjC0srGamU/IMK-kelompok-2?node-id=138-896&starting-point-node-id=211%3A9861&t=c6Ioc1MLdg581gMo-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX Website SLB di Figma">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H12.5C14.9853 3 17 5.01472 17 7.5C17 9.98528 14.9853 12 12.5 12H9V3Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12H12.5C14.9853 12 17 14.0147 17 16.5C17 18.9853 14.9853 21 12.5 21H9V12Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 3H9V12H7C4.79086 12 3 10.2091 3 8C3 5.79086 4.79086 3 7 3Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 12H9V21H7C4.79086 21 3 19.2091 3 17C3 14.7909 4.79086 12 7 12Z" stroke="currentColor" stroke-width="1.6"/></svg>
-                <span data-lang-id="File Desain (Figma)" data-lang-en="Design File (Figma)">File Desain (Figma)</span>
-              </a>
+              <a class="link" href="https://www.figma.com/proto/PIPzwMaHh9h9vjC0srGamU/IMK-kelompok-2?node-id=138-896&starting-point-node-id=211%3A9861&t=c6Ioc1MLdg581gMo-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX InDrive di Figma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 0 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/></svg><span data-lang-id="File Desain (Figma)" data-lang-en="Design File (Figma)">File Desain (Figma)</span></a>
             </div>
           </div>
   
@@ -1301,10 +1653,7 @@
             </div>
   
             <div class="links">
-              <a class="link" href="https://www.figma.com/proto/2qRIobYWNeiQNXX8dXi2ZX/Project-PKM-Kodamas?node-id=81-14&t=MWVmtSi1anjsfoML-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX AgrowUp di Figma">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H12.5C14.9853 3 17 5.01472 17 7.5C17 9.98528 14.9853 12 12.5 12H9V3Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12H12.5C14.9853 12 17 14.0147 17 16.5C17 18.9853 14.9853 21 12.5 21H9V12Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 3H9V12H7C4.79086 12 3 10.2091 3 8C3 5.79086 4.79086 3 7 3Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 12H9V21H7C4.79086 21 3 19.2091 3 17C3 14.7909 4.79086 12 7 12Z" stroke="currentColor" stroke-width="1.6"/></svg>
-                <span data-lang-id="File Desain (Figma)" data-lang-en="Design File (Figma)">File Desain (Figma)</span>
-              </a>
+              <a class="link" href="https://www.figma.com/proto/2qRIobYWNeiQNXX8dXi2ZX/Project-PKM-Kodamas?node-id=81-14&t=MWVmtSi1anjsfoML-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX AgrowUp di Figma"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"/><path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"/><path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/><path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 0 1-7 0z"/><path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"/></svg><span data-lang-id="File Desain (Figma)" data-lang-en="Design File (Figma)">File Desain (Figma)</span></a>
             </div>
           </div>
         </section>
@@ -1702,6 +2051,47 @@
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeCertModal(null);
     });
+  </script>
+
+  <!-- DRIPCODE WIDGET -->
+  <div class="dripcode-widget" id="dripcodeWidget" onclick="window.open('https://dripcode.site', '_blank')">
+    <button class="dripcode-close" id="closeDripcode" aria-label="Tutup Iklan">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="10" height="10">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="dripcode-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="10" height="10">
+        <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
+        <line x1="12" y1="22" x2="12" y2="15.5"></line>
+        <polyline points="22 8.5 12 15.5 2 8.5"></polyline>
+        <polyline points="2 15.5 12 15.5 22 15.5"></polyline>
+      </svg>
+      <span data-lang-id="Partner Kami" data-lang-en="Our Partner">Partner Kami</span>
+    </div>
+    <h4 class="dripcode-title">Dripcode Studio &rarr;</h4>
+    <p class="dripcode-desc" data-lang-id="Ingin website atau aplikasi premium kustom untuk bisnis Anda? Wujudkan produk digital berkinerja tinggi bersama Dripcode. Konsultasikan gratis sekarang!" data-lang-en="Need a custom premium website or app for your business? Build high-performance digital products with Dripcode. Free consultation now!">
+      Ingin website atau aplikasi premium kustom untuk bisnis Anda? Wujudkan produk digital berkinerja tinggi bersama Dripcode. Konsultasikan gratis sekarang!
+    </p>
+  </div>
+
+  <script>
+    (function() {
+      const closeBtn = document.getElementById('closeDripcode');
+      const widget = document.getElementById('dripcodeWidget');
+      if (closeBtn && widget) {
+        closeBtn.addEventListener('click', function(e) {
+          e.stopPropagation(); // Stop redirect trigger from outer div
+          widget.style.opacity = '0';
+          widget.style.transform = 'translateX(-30px) scale(0.95)';
+          widget.style.pointerEvents = 'none';
+          setTimeout(function() {
+            widget.remove();
+          }, 300);
+        });
+      }
+    })();
   </script>
 </body>
 
