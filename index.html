@@ -1,44 +1,54 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title id="docTitle">Portofolio Septiawan Hadi Prasetyo</title>
-  <meta name="description" content="Portofolio pribadi berisi biodata dan proyek: SagaHealth & Website Profile Sekolah SLB Raudhatul Zannah." />
+  <meta name="description"
+    content="Portofolio pribadi berisi biodata dan proyek: SagaHealth & Website Profile Sekolah SLB Raudhatul Zannah." />
 
   <!-- Modern fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap"
+    rel="stylesheet">
 
   <style>
     :root {
-      /* Neumorphism Design Tokens */
-      --bg: #E0E5EC;
-      --text-primary: #3D4852;
-      --text-muted: #6B7280;
-      --accent: #6C63FF;
-      --accent-light: #8B84FF;
-      --accent-secondary: #38B2AC;
+      /* Storm Glassmorphism Design Tokens */
+      --bg: #07090e;
+      --bg-gradient: radial-gradient(circle at 50% 50%, #111827 0%, #07090e 100%);
+      --text-primary: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent: #6366f1; /* Lightning Indigo */
+      --accent-light: #818cf8;
+      --accent-secondary: #06b6d4; /* Lightning Cyan */
+      --accent-glow: rgba(99, 102, 241, 0.25);
+      --accent-cyan-glow: rgba(6, 182, 212, 0.25);
       
-      /* Shadows (The Physics) */
-      --shadow-light: rgba(255, 255, 255, 0.6);
-      --shadow-dark: rgba(163, 177, 198, 0.7);
+      /* Glassmorphism shadows and borders */
+      --glass-bg: rgba(13, 18, 30, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-border-hover: rgba(99, 102, 241, 0.25);
+      --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+      --shadow-glow: 0 0 20px var(--accent-glow);
       
       /* Preset Shadow Combinations */
-      --extruded: 9px 9px 16px var(--shadow-dark), -9px -9px 16px var(--shadow-light);
-      --extruded-hover: 12px 12px 20px var(--shadow-dark), -12px -12px 20px var(--shadow-light);
-      --extruded-sm: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
-      --inset: inset 6px 6px 10px var(--shadow-dark), inset -6px -6px 10px var(--shadow-light);
-      --inset-deep: inset 10px 10px 20px var(--shadow-dark), inset -10px -10px 20px var(--shadow-light);
-      --inset-sm: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+      --extruded: var(--shadow-glass);
+      --extruded-hover: var(--shadow-glass), var(--shadow-glow);
+      --extruded-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+      --inset: inset 0 2px 4px rgba(255, 255, 255, 0.05);
+      --inset-deep: inset 0 4px 8px rgba(0, 0, 0, 0.4);
+      --inset-sm: inset 0 1px 2px rgba(255, 255, 255, 0.05);
       
       /* Radius */
-      --radius-lg: 32px;
+      --radius-lg: 24px;
       --radius-md: 16px;
       --radius-sm: 12px;
       
-      --transition: 300ms ease-out;
+      --transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     *{ box-sizing: border-box; }
@@ -48,31 +58,93 @@
       font-family: "DM Sans", system-ui, -apple-system, sans-serif;
       color: var(--text-primary);
       background-color: var(--bg);
+      background-image: var(--bg-gradient);
       min-height: 100vh;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      position: relative;
+      overflow-x: hidden;
     }
 
     h1, h2, h3, .font-display {
       font-family: "Plus Jakarta Sans", sans-serif;
       font-weight: 800;
       letter-spacing: -0.02em;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
     a { 
-      color: var(--accent); 
+      color: var(--accent-secondary); 
       text-decoration: none; 
       transition: var(--transition);
     }
     a:hover { 
-      color: var(--accent-light);
-      text-decoration: none; 
+      color: #22d3ee;
+      text-shadow: 0 0 8px rgba(34, 211, 238, 0.4);
     }
 
     .wrap{
       max-width: 1000px;
       margin: 0 auto;
       padding: 0 18px 56px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* BACKGROUND CANVAS FOR RAIN & LIGHTNING OVERLAY */
+    #rain-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .lightning-flash-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      background-color: #fff;
+      opacity: 0;
+      transition: opacity 60ms ease-out;
+    }
+
+    /* CONTROLLER FOR STORM EFFECTS */
+    .storm-control {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 99;
+      display: flex;
+      gap: 10px;
+    }
+    
+    .control-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-primary);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-glass);
+      transition: var(--transition);
+    }
+    
+    .control-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent-secondary);
+      transform: scale(1.1);
+      box-shadow: 0 0 15px var(--accent-glow);
     }
 
     /* HERO */
@@ -82,27 +154,123 @@
     }
     .hero {
       border-radius: var(--radius-lg);
-      background: var(--bg);
-      box-shadow: var(--extruded);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-glass);
       overflow: hidden;
       transition: var(--transition);
+      backdrop-filter: blur(16px);
     }
     .hero-inner{
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 22px;
-      padding: 28px;
+      grid-template-columns: 1fr 340px 1fr;
+      gap: 32px;
+      padding: 36px;
       align-items: center;
+    }
+
+    .hero-name-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .hero-name-col h1 {
+      font-size: 48px;
+      margin: 0 0 8px;
+      line-height: 1.1;
+    }
+
+    .hero-right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    /* HERO QUOTE BLOCK */
+    .hero-quote {
+      position: relative;
+      padding: 28px 24px 24px 32px;
+      border-radius: var(--radius-md);
+      background: rgba(13, 18, 30, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    .hero-quote::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--accent-secondary) 100%);
+      border-radius: 3px 0 0 3px;
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+
+    .hero-quote-mark {
+      font-size: 80px;
+      line-height: 0.6;
+      font-family: Georgia, serif;
+      color: var(--accent);
+      opacity: 0.25;
+      display: block;
+      margin-bottom: 8px;
+      user-select: none;
+    }
+
+    .hero-quote-text {
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--text-primary);
+      line-height: 1.8;
+      margin: 0 0 20px;
+      letter-spacing: 0.01em;
+    }
+
+    .hero-quote-text em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--accent-light), var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-quote-source {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-light);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .hero-quote-source svg {
+      width: 14px;
+      height: 14px;
+      color: var(--accent-secondary);
+      flex-shrink: 0;
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 10px 16px;
+      padding: 8px 16px;
       border-radius: 999px;
-      background: var(--bg);
-      box-shadow: var(--inset-sm);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: var(--text-muted);
       font-size: 13px;
       font-weight: 500;
@@ -113,37 +281,49 @@
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
+      background: var(--accent-secondary);
+      box-shadow: 0 0 10px var(--accent-secondary);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(6, 182, 212, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(6, 182, 212, 0); }
     }
 
     h1 {
       margin: 0 0 12px;
-      font-size: 42px;
+      font-size: 44px;
       color: var(--text-primary);
+      background: linear-gradient(135deg, #fff 30%, var(--accent-light) 70%, var(--accent-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .subtitle {
       margin: 0;
-      color: var(--text-muted);
+      color: var(--accent-secondary);
       font-size: 18px;
-      font-weight: 500;
+      font-weight: 600;
       line-height: 1.6;
       max-width: 52ch;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
     .subtitle1 {
       margin: 0;
       color: var(--text-muted);
-      font-size: 11px;
-      opacity: 0.8;
+      font-size: 12px;
+      opacity: 0.7;
       line-height: 1.6;
       max-width: 52ch;
     }
 
     .cta{
-      margin-top: 18px;
+      margin-top: 24px;
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 12px;
     }
     .btn {
       display: inline-flex;
@@ -152,66 +332,137 @@
       gap: 10px;
       padding: 12px 24px;
       border-radius: var(--radius-md);
-      background: var(--bg);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       color: var(--text-primary);
       font-weight: 700;
       font-size: 14px;
       box-shadow: var(--extruded-sm);
       transition: var(--transition);
-      border: none;
       cursor: pointer;
+      backdrop-filter: blur(8px);
     }
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: var(--extruded-hover);
-      color: var(--accent);
+      border-color: var(--accent-light);
+      background: rgba(99, 102, 241, 0.1);
+      box-shadow: 0 4px 15px var(--accent-glow);
     }
     .btn:active {
       transform: translateY(1px);
       box-shadow: var(--inset-sm);
     }
     .btn.primary {
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
       color: white;
-      box-shadow: 5px 5px 15px rgba(108, 99, 255, 0.4), -5px -5px 15px rgba(255, 255, 255, 0.1);
+      border: none;
+      box-shadow: 0 4px 20px rgba(99, 99, 241, 0.4);
     }
     .btn.primary:hover {
-      background: var(--accent-light);
-      color: white;
+      background: linear-gradient(135deg, var(--accent-light) 0%, #a5b4fc 100%);
+      box-shadow: 0 6px 24px rgba(99, 99, 241, 0.6), 0 0 15px rgba(255, 255, 255, 0.2);
     }
     .btn.primary:active {
-      box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
     }
     .btn svg { width: 18px; height: 18px; }
 
     .side{
       display: grid;
-      gap: 12px;
-      justify-items: end;
+      gap: 20px;
+      justify-items: center;
+      width: 100%;
     }
-    .avatar {
-      width: 140px;
-      height: 140px;
-      border-radius: 999px;
-      padding: 10px;
-      background: var(--bg);
-      box-shadow: var(--extruded);
-      object-fit: cover;
-      display: block;
+    
+    /* VIDEO AND AVATAR */
+    .video-card {
+      width: 100%;
+      height: 360px;
+      border-radius: var(--radius-lg);
+      padding: 6px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-glass), 0 0 30px rgba(99, 102, 241, 0.2);
+      position: relative;
+      overflow: hidden;
       transition: var(--transition);
     }
-    .avatar:hover {
-      transform: scale(1.05) rotate(5deg);
+    
+    .video-card:hover {
+      border-color: var(--accent-light);
+      box-shadow: var(--shadow-glass), 0 0 45px var(--accent-glow);
     }
+    
+    .video-wrapper {
+      width: 100%;
+      height: 100%;
+      border-radius: calc(var(--radius-lg) - 6px);
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+    
+    .video-wrapper video,
+    .video-wrapper img.avatar-fallback {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.55) contrast(1.05);
+      transition: filter 400ms ease;
+    }
+
+    .video-wrapper:hover video,
+    .video-wrapper:hover img.avatar-fallback {
+      filter: brightness(0.7) contrast(1.05);
+    }
+    
+    .video-status {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(7, 10, 19, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+    
+    .video-status .pulse-red {
+      width: 6px;
+      height: 6px;
+      background-color: #ef4444;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #ef4444;
+      animation: pulse-red-anim 1.5s infinite;
+    }
+    
+    @keyframes pulse-red-anim {
+      0% { transform: scale(0.9); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.4; }
+      100% { transform: scale(0.9); opacity: 1; }
+    }
+
     .mini {
       width: 100%;
       max-width: 320px;
       padding: 20px;
       border-radius: var(--radius-md);
-      background: var(--bg);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
       box-shadow: var(--inset-deep);
+      backdrop-filter: blur(10px);
     }
-    .mini strong{ display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+    .mini strong{ display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em; }
     .chips{
       display:flex;
       flex-wrap: wrap;
@@ -220,8 +471,8 @@
     .chip {
       padding: 8px 14px;
       border-radius: 999px;
-      background: var(--bg);
-      box-shadow: var(--extruded-sm);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       color: var(--text-primary);
       font-size: 12px;
       font-weight: 600;
@@ -229,33 +480,40 @@
       transition: var(--transition);
     }
     .chip:hover {
-      color: var(--accent);
+      color: var(--accent-cyan);
+      border-color: var(--accent-secondary);
+      background: rgba(6, 182, 212, 0.08);
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
       transform: translateY(-1px);
     }
 
     /* SECTIONS */
     .grid{
       display: grid;
-      gap: 18px;
-      margin-top: 18px;
+      gap: 24px;
+      margin-top: 24px;
       grid-template-columns: 1fr;
     }
 
     .card {
       border-radius: var(--radius-lg);
-      background: var(--bg);
-      box-shadow: var(--extruded);
-      padding: 32px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-glass);
+      padding: 36px;
       transition: var(--transition);
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
     }
     .card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--extruded-hover);
+      border-color: var(--glass-border-hover);
+      box-shadow: var(--shadow-glass), 0 0 20px rgba(99, 102, 241, 0.05);
     }
 
     .card h2 {
       margin: 0 0 24px;
-      font-size: 24px;
+      font-size: 26px;
       color: var(--text-primary);
       display: flex;
       align-items: center;
@@ -270,15 +528,15 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      color: var(--accent);
-      background: var(--bg);
-      box-shadow: var(--inset-sm);
+      color: var(--accent-secondary);
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.15);
     }
 
     .two-col{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 18px;
+      gap: 20px;
     }
 
     .list{
@@ -286,7 +544,7 @@
       padding: 0;
       list-style: none;
       display:grid;
-      gap: 10px;
+      gap: 12px;
     }
 
     .row {
@@ -295,13 +553,15 @@
       align-items: center;
       padding: 16px;
       border-radius: var(--radius-md);
-      background: var(--bg);
-      box-shadow: var(--extruded-sm);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.04);
       transition: var(--transition);
     }
     .row:hover {
-      box-shadow: var(--extruded);
-      transform: scale(1.02);
+      border-color: rgba(99, 102, 241, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+      transform: scale(1.01) translateY(-1px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .icon {
@@ -310,10 +570,17 @@
       border-radius: var(--radius-sm);
       display: grid;
       place-items: center;
-      background: var(--bg);
-      box-shadow: var(--inset-deep);
-      color: var(--accent);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--accent-secondary);
       flex: 0 0 auto;
+      transition: var(--transition);
+    }
+    .row:hover .icon {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent-light);
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
     }
     .icon svg{ width: 18px; height: 18px; opacity: 0.95; }
 
@@ -325,50 +592,63 @@
       font-weight: 700;
       font-size: 13px;
       margin: 0 0 4px;
-      color: rgba(15, 23, 42, 0.92);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .value{
       margin: 0;
-      color: var(--text-muted);
-      font-size: 13px;
+      color: var(--text-primary);
+      font-size: 14px;
       line-height: 1.55;
       overflow-wrap: anywhere;
     }
 
     .project {
-      padding: 24px;
+      padding: 28px;
       border-radius: var(--radius-md);
-      background: var(--bg);
+      background: rgba(255, 255, 255, 0.01);
+      border: 1px solid rgba(255, 255, 255, 0.04);
       box-shadow: var(--inset);
       transition: var(--transition);
     }
     .project:hover {
-      box-shadow: var(--inset-deep);
+      border-color: rgba(99, 102, 241, 0.25);
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
     .project-head{
       display:flex;
       align-items: flex-start;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .project h3 {
       margin: 0;
-      font-size: 18px;
+      font-size: 19px;
       color: var(--text-primary);
       font-weight: 700;
+      background: linear-gradient(to right, #fff, var(--text-muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .project:hover h3 {
+      background: linear-gradient(to right, #fff, var(--accent-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .project p{
-      margin: 6px 0 0;
+      margin: 8px 0 0;
       color: var(--text-muted);
       font-size: 13px;
       line-height: 1.6;
     }
 
     .links{
-      margin-top: 12px;
+      margin-top: 16px;
       display:flex;
       flex-wrap: wrap;
       gap: 10px;
@@ -380,8 +660,8 @@
       gap: 8px;
       padding: 10px 16px;
       border-radius: var(--radius-sm);
-      background: var(--bg);
-      box-shadow: var(--extruded-sm);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       color: var(--text-primary);
       font-weight: 700;
       font-size: 13px;
@@ -389,472 +669,751 @@
     }
     .link:hover {
       text-decoration: none;
-      box-shadow: var(--extruded);
-      color: var(--accent);
+      background: rgba(6, 182, 212, 0.08);
+      border-color: var(--accent-secondary);
+      color: var(--accent-cyan);
+      box-shadow: 0 4px 15px rgba(6, 182, 212, 0.2);
       transform: translateY(-2px);
     }
     .link:active {
       box-shadow: var(--inset-sm);
       transform: translateY(1px);
     }
-    .link svg { width: 18px; height: 18px; color: var(--accent); }
-
-    footer {
-      margin-top: 48px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 14px;
-      padding: 32px 0;
-      opacity: 0.8;
-    }
+    .link svg { width: 18px; height: 18px; color: var(--accent-secondary); }
 
     /* Accessibility focus state */
     :focus-visible {
       outline: none;
-      box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent) !important;
+      box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--accent-secondary) !important;
     }
 
     /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr 280px; }
+      .hero-name-col { grid-column: 1 / -1; text-align: center; align-items: center; }
+      .hero-name-col h1 { font-size: 38px; }
+      .badge { margin: 0 auto 16px; }
+    }
+
     @media (max-width: 820px) {
-      .hero-inner { grid-template-columns: 1fr; padding: 32px; text-align: center; }
-      .side { justify-items: center; order: -1; margin-bottom: 24px; }
+      .hero-inner { grid-template-columns: 1fr; padding: 28px; text-align: center; }
+      .hero-name-col { align-items: center; }
+      .video-card { height: 280px; max-width: 280px; margin: 0 auto; }
+      .hero-right-col { align-items: center; }
       .two-col { grid-template-columns: 1fr; }
       .cta { justify-content: center; }
       h1 { font-size: 32px; }
-      .badge { margin: 0 auto 24px; }
+      .badge { margin: 0 auto 16px; }
     }
-    /* Decorative Elements */
+    
+    /* Decorative Background Glowing Nebulas */
     .bg-circle {
       position: fixed;
-      z-index: -1;
-      border-radius: 999px;
-      background: var(--bg);
-      box-shadow: var(--extruded);
-      animation: float 6s ease-in-out infinite;
+      z-index: -3;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, rgba(99, 102, 241, 0) 70%);
+      filter: blur(80px);
+      animation: float 10s ease-in-out infinite;
+      pointer-events: none;
     }
-    .circle-1 { width: 300px; height: 300px; top: -100px; left: -100px; }
-    .circle-2 { width: 200px; height: 200px; bottom: 10%; right: -50px; animation-delay: -3s; }
+    .circle-1 { width: 450px; height: 450px; top: -150px; left: -150px; }
+    .circle-2 { width: 350px; height: 350px; bottom: 10%; right: -100px; animation-delay: -5s; background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, rgba(6, 182, 212, 0) 70%); }
 
     @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(0); }
-      50% { transform: translateY(-20px) rotate(10deg); }
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
     }
-  </style>
+
+    /* NAV TABS SYSTEM */
+    .nav-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin: 32px auto 0;
+      padding: 6px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      width: fit-content;
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-glass);
+      position: sticky;
+      top: 24px;
+      z-index: 50;
+      transition: var(--transition);
+    }
+    
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: "Plus Jakarta Sans", sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .tab-btn.active {
+      color: #fff;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+    }
+    
+    .nav-icon {
+      transition: transform 300ms ease;
+    }
+    .tab-btn.active .nav-icon {
+      transform: scale(1.1);
+    }
+
+    /* TAB CONTENT ANIMATIONS */
+    .tab-content {
+      display: none;
+      opacity: 0;
+      transform: translateY(15px);
+      transition: opacity 350ms ease, transform 350ms ease;
+    }
+    
+    .tab-content.active {
+      display: block;
+      animation: tabFadeIn 450ms forwards cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    @keyframes tabFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    /* CERTIFICATE GRID & CARDS */
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .cert-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 20px;
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cert-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(99,102,241,0.06) 0%, rgba(6,182,212,0.04) 100%);
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+
+    .cert-card:hover {
+      border-color: rgba(99,102,241,0.35);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3), 0 0 20px rgba(99,102,241,0.1);
+    }
+
+    .cert-card:hover::after { opacity: 1; }
+
+    .cert-thumb {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.15);
+      display: grid;
+      place-items: center;
+      color: var(--accent-light);
+      flex-shrink: 0;
+    }
+
+    .cert-thumb svg { width: 24px; height: 24px; }
+
+    .cert-info { flex: 1; }
+
+    .cert-name {
+      margin: 0 0 4px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .cert-issuer {
+      margin: 0;
+      font-size: 12px;
+      color: var(--accent-secondary);
+      font-weight: 500;
+    }
+
+    .cert-preview-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.2);
+      color: var(--accent-light);
+      font-size: 12px;
+      font-weight: 700;
+      width: fit-content;
+      transition: var(--transition);
+    }
+
+    .cert-card:hover .cert-preview-btn {
+      background: rgba(99,102,241,0.2);
+      border-color: var(--accent-light);
+      box-shadow: 0 0 10px rgba(99,102,241,0.3);
+    }
+
+    /* CERTIFICATE MODAL LIGHTBOX */
+    .cert-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(10px);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      animation: fadeInOverlay 200ms ease;
+    }
+
+    .cert-modal-overlay.open {
+      display: flex;
+    }
+
+    @keyframes fadeInOverlay {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .cert-modal {
+      background: rgba(13,18,30,0.95);
+      border: 1px solid rgba(99,102,241,0.25);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6), 0 0 40px rgba(99,102,241,0.15);
+      width: 100%;
+      max-width: 860px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      animation: slideUpModal 250ms cubic-bezier(0.4,0,0.2,1);
+    }
+
+    @keyframes slideUpModal {
+      from { opacity: 0; transform: translateY(30px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .cert-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+
+    .cert-modal-title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .cert-modal-title strong {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-primary);
+      font-family: "Plus Jakarta Sans", sans-serif;
+    }
+
+    .cert-modal-title span {
+      font-size: 12px;
+      color: var(--accent-secondary);
+      font-weight: 500;
+    }
+
+    .cert-modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .cert-modal-close:hover {
+      background: rgba(239,68,68,0.15);
+      border-color: rgba(239,68,68,0.4);
+      color: #ef4444;
+    }
+
+    .cert-modal-body {
+      flex: 1;
+      overflow: hidden;
+      min-height: 0;
+    }
+
+    .cert-modal-body iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+      border: none;
+      display: block;
+    }
+</style>
 </head>
+
 <body>
+  <canvas id="rain-canvas"></canvas>
+  <div class="lightning-flash-overlay" id="lightning-flash"></div>
+  
+  <div class="storm-control">
+    <button class="control-btn" id="toggleEffects" title="Toggle Efek Badai" aria-label="Toggle Efek Badai">
+      <svg id="storm-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25" />
+        <line x1="8" y1="16" x2="8" y2="22" />
+        <line x1="12" y1="18" x2="12" y2="22" />
+        <line x1="16" y1="16" x2="16" y2="22" />
+      </svg>
+    </button>
+  </div>
+
   <div class="bg-circle circle-1"></div>
   <div class="bg-circle circle-2"></div>
+  
   <div class="wrap">
-    <header>
-      <div class="hero">
-        <div class="hero-inner">
-          <div>
-            <div class="badge">
-              <span class="dot"></span> 
-              <span data-lang-id="Portofolio • UI/UX • Web • Artikel" data-lang-en="Portfolio • UI/UX • Web • Articles">Portofolio • UI/UX • Web • Artikel</span>
-            </div>
-            <h1>Septiawan Hadi Prasetyo</h1>
-            <p class="subtitle" data-lang-id="Junior Development and Research" data-lang-en="Junior Development and Research">Junior Development and Research</p>
+    <!-- NAVIGATION TABS -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-target="section-profile" id="tab-profile-btn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span data-lang-id="Profil Saya" data-lang-en="My Profile">Profil Saya</span>
+      </button>
+      <button class="tab-btn" data-target="section-showcase" id="tab-showcase-btn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+        <span data-lang-id="Showcase Karya" data-lang-en="Work Showcase">Showcase Karya</span>
+      </button>
+    </nav>
 
-            <div class="cta">
-              <a class="btn primary" href="mailto:septiawanhadi38@gmail.com?subject=Kontak%20dari%20Portofolio" aria-label="Kirim email">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6.5V17.5C4 18.3284 4.67157 19 5.5 19H18.5C19.3284 19 20 18.3284 20 17.5V6.5C20 5.67157 19.3284 5 18.5 5H5.5C4.67157 5 4 5.67157 4 6.5Z" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7.5L12 12L17.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                Email
-              </a>
-              <a class="btn" href="#portfolio" aria-label="Lihat portofolio">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 5V19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M19 12H5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-                <span data-lang-id="Lihat Proyek" data-lang-en="View Projects">Lihat Proyek</span>
-              </a>
-              <button class="btn" type="button" id="copyEmail" aria-label="Salin email">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 8V6.5C8 5.67157 8.67157 5 9.5 5H17.5C18.3284 5 19 5.67157 19 6.5V14.5C19 15.3284 18.3284 16 17.5 16H16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6.5 8H14.5C15.3284 8 16 8.67157 16 9.5V17.5C16 18.3284 15.3284 19 14.5 19H6.5C5.67157 19 5 18.3284 5 17.5V9.5C5 8.67157 5.67157 8 6.5 8Z" stroke="currentColor" stroke-width="1.6"/></svg>
-                <span id="btnCopyText" data-lang-id="Salin Email" data-lang-en="Copy Email">Salin Email</span>
-              </button>
-              
-              <!-- Language Switcher Button -->
-              <button class="btn" type="button" id="langToggle" aria-label="Ubah Bahasa">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M2 12H22" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M12 2C14.5013 4.73835 15.9228 8.29203 16 12C15.9228 15.708 14.5013 19.2616 12 22C9.49872 19.2616 8.07725 15.708 8 12C8.07725 8.29203 9.49872 4.73835 12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <span id="langText">English</span>
-              </button>
+    <!-- SECTION 1: PROFILE TAB -->
+    <div id="section-profile" class="tab-content active">
+      <header>
+        <div class="hero">
+          <div class="hero-inner">
+
+            <!-- KOLOM KIRI: Nama & badge -->
+            <div class="hero-name-col">
+              <div class="badge">
+                <span class="dot"></span>
+                <span data-lang-id="Portofolio • UI/UX • Web • Artikel" data-lang-en="Portfolio • UI/UX • Web • Articles">Portofolio • UI/UX • Web • Artikel</span>
+              </div>
+              <h1>Septiawan Hadi Prasetyo</h1>
+              <p class="subtitle" data-lang-id="Junior Development and Research" data-lang-en="Junior Development and Research">Junior Development and Research</p>
             </div>
-            <p class="subtitle1" style="margin-top: 10px; max-width: 100%;" data-lang-id="Noted: Jika tombol Email tidak membuka aplikasi email, gunakan tombol <b>Salin Email</b> lalu tempel di Gmail/Outlook." data-lang-en="Note: If the Email button does not open your email app, use the <b>Copy Email</b> button and paste it into Gmail/Outlook.">
-              Noted: Jika tombol Email tidak membuka aplikasi email, gunakan tombol <b>Salin Email</b> lalu tempel di Gmail/Outlook.
-            </p>
+
+            <!-- KOLOM TENGAH: Video besar & gelap -->
+            <div class="video-card">
+              <div class="video-wrapper">
+                <video id="profileVideo" autoplay loop muted playsinline poster="septi.jpeg">
+                  <source src="profile.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+
+            <!-- KOLOM KANAN: Quote lagu -->
+            <div class="hero-right-col">
+              <div class="hero-quote">
+                <span class="hero-quote-mark">&ldquo;</span>
+                <p class="hero-quote-text">
+                  <em>Kuurai satu-satu,</em><br>
+                  Semua takut dan cemasku,<br>
+                  <em>Menjadi pemilik tubuhku,</em><br>
+                  Ia kan takluk dan berikan jalan
+                </p>
+                <span class="hero-quote-source">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18V5l12-2v13"/>
+                    <circle cx="6" cy="18" r="3"/>
+                    <circle cx="18" cy="16" r="3"/>
+                  </svg>
+                  Nafas &mdash; Dipha Barus, Hindia
+                </span>
+              </div>
+            </div>
+
           </div>
+        </div>
+      </header>
 
-          <div class="side">
-            <img class="avatar" src="septi.jpeg" alt="Foto Septiawan" />
-            <div class="mini">
-              <strong data-lang-id="Highlight Keahlian" data-lang-en="Skill Highlights">Highlight Keahlian</strong>
-              <div class="chips">
-                <span class="chip">UI/UX</span>
-                <span class="chip" data-lang-id="Prototyping" data-lang-en="Prototyping">Prototyping</span>
-                <span class="chip">Web</span>
-                <span class="chip" data-lang-id="Research" data-lang-en="Research">Research</span>
-                <span class="chip" data-lang-id="Penulisan" data-lang-en="Writing">Penulisan</span>
+      <main class="grid">
+        <section class="card">
+          <h2>
+            <span data-lang-id="Biodata" data-lang-en="Biography">Biodata</span> 
+            <span class="pill" data-lang-id="Tentang Saya" data-lang-en="About Me">Tentang Saya</span>
+          </h2>
+  
+          <div class="two-col">
+            <ul class="list">
+              <li class="row">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="1.6"/><path d="M4 20C4 16.6863 7.58172 14 12 14C16.4183 14 20 16.6863 20 20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                </div>
+                <div class="meta">
+                  <p class="label" data-lang-id="Nama" data-lang-en="Name">Nama</p>
+                  <p class="value">Septiawan Hadi Prasetyo</p>
+                </div>
+              </li>
+  
+              <li class="row">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6.5V17.5C4 18.3284 4.67157 19 5.5 19H18.5C19.3284 19 20 18.3284 20 17.5V6.5C20 5.67157 19.3284 5 18.5 5H5.5C4.67157 5 4 5.67157 4 6.5Z" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7.5L12 12L17.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="meta">
+                  <p class="label">Email</p>
+                  <p class="value"><a href="mailto:septiawanhadi38@gmail.com?subject=Kontak%20dari%20Portofolio">septiawanhadi38@gmail.com</a></p>
+                </div>
+              </li>
+            </ul>
+  
+            <ul class="list">
+              <li class="row">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21S18 16.5 18 11.5C18 8.18629 15.3137 5.5 12 5.5C8.68629 5.5 6 8.18629 6 11.5C6 16.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.6"/><path d="M12 12.5C13.1046 12.5 14 11.6046 14 10.5C14 9.39543 13.1046 8.5 12 8.5C10.8954 8.5 10 9.39543 10 10.5C10 11.6046 10.8954 12.5 12 12.5Z" stroke="currentColor" stroke-width="1.6"/></svg>
+                </div>
+                <div class="meta">
+                  <p class="label" data-lang-id="Domisili" data-lang-en="Domicile">Domisili</p>
+                  <p class="value" data-lang-id="Ciwidey, Kabupaten Bandung, Jawabarat, Indonesia" data-lang-en="Ciwidey, Bandung Regency, West Java, Indonesia">Ciwidey, Kabupaten Bandung, Jawabarat, Indonesia</p>
+                </div>
+              </li>
+  
+              <li class="row">
+                <div class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L20 6.5V17.5L12 22L4 17.5V6.5L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 22V12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 6.5L12 12L4 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div class="meta">
+                  <p class="label" data-lang-id="Keahlian" data-lang-en="Skills">Keahlian</p>
+                  <p class="value" data-lang-id="UI/UX Design, Web Development, Penulisan Ilmiah" data-lang-en="UI/UX Design, Web Development, Scientific Writing">UI/UX Design, Web Development, Penulisan Ilmiah</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+  
+          <div style="margin-top: 14px;">
+            <div class="row" style="align-items: center;">
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 7H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7 12H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7 17H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6 3H18C19.1046 3 20 3.89543 20 5V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V5C4 3.89543 4.89543 3 6 3Z" stroke="currentColor" stroke-width="1.6"/></svg>
+              </div>
+              <div class="meta">
+                <p class="label" data-lang-id="Ringkasan" data-lang-en="Summary">Ringkasan</p>
+                <p class="value" data-lang-id="Menjembatani celah antara kebutuhan pengguna dan kompleksitas teknologi melalui pendekatan berbasis riset. Sebagai pengembang yang menguasai UI/UX dan Web Development, saya mengedepankan Human-Centered Design dalam setiap baris kode dan elemen visual yang saya buat. Terbiasa menangani proyek dengan integrasi sistem pihak ketiga dan manajemen tim yang adaptif, saya berorientasi pada penciptaan produk yang stabil, estetik, dan skalabel." data-lang-en="Bridging the gap between user needs and technological complexity through a research-based approach. As a developer specializing in UI/UX and Web Development, I prioritize Human-Centered Design in every line of code and visual element I create. Experienced in handling projects with third-party system integrations and adaptive team management, I am oriented toward building stable, aesthetic, and scalable products.">Menjembatani celah antara kebutuhan pengguna dan kompleksitas teknologi melalui pendekatan berbasis riset. Sebagai pengembang yang menguasai UI/UX dan Web Development, saya mengedepankan Human-Centered Design dalam setiap baris kode dan elemen visual yang saya buat. Terbiasa menangani proyek dengan integrasi sistem pihak ketiga dan manajemen tim yang adaptif, saya berorientasi pada penciptaan produk yang stabil, estetik, dan skalabel.</p>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </header>
 
-    <main class="grid">
-      <section class="card">
-        <h2>
-          <span data-lang-id="Biodata" data-lang-en="Biography">Biodata</span> 
-          <span class="pill" data-lang-id="Tentang Saya" data-lang-en="About Me">Tentang Saya</span>
-        </h2>
+        <!-- Highlight Keahlian -->
+        <div style="margin-top: 20px;">
+          <p class="label" style="margin: 0 0 12px;" data-lang-id="Highlight Keahlian" data-lang-en="Skill Highlights">Highlight Keahlian</p>
+          <div class="chips">
+            <span class="chip">UI/UX Design</span>
+            <span class="chip">Prototyping</span>
+            <span class="chip">Web Development</span>
+            <span class="chip" data-lang-id="Riset" data-lang-en="Research">Riset</span>
+            <span class="chip" data-lang-id="Penulisan Ilmiah" data-lang-en="Scientific Writing">Penulisan Ilmiah</span>
+            <span class="chip">Figma</span>
+            <span class="chip">Human-Centered Design</span>
+          </div>
+        </div>
+        </section>
+      </main>
+    </div>
 
-        <div class="two-col">
+    <!-- SECTION 2: SHOWCASE TAB -->
+    <div id="section-showcase" class="tab-content">
+      <main class="grid">
+        <section id="portfolio" class="card">
+          <h2>
+            <span data-lang-id="Portofolio" data-lang-en="Portfolio">Portofolio</span> 
+            <span class="pill" data-lang-id="Proyek" data-lang-en="Projects">Proyek</span>
+          </h2>
+  
+          <div class="project" style="margin-bottom: 14px;">
+            <div class="project-head">
+              <div>
+                <h3>1) SagaHealth</h3>
+                <p data-lang-id="Proyek aplikasi kesehatan. Berisi desain UI/UX, repository pengembangan aplikasi, dan penulisan pendukung." data-lang-en="Health application project. Contains UI/UX designs, application development repository, and supporting documentation.">Proyek aplikasi kesehatan. Berisi desain UI/UX, repository pengembangan aplikasi, dan penulisan pendukung.</p>
+              </div>
+              <span class="pill">Website App</span>
+            </div>
+  
+            <div class="links">
+              <a class="link" href="https://www.figma.com/proto/uBN4ZNniZwLnaX6oNHdmtl/SAGAHEALTH?node-id=92-93&starting-point-node-id=122%3A8&t=Jkmv4hxAp6mAhRpS-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX Aplikasi SagaHealth di Figma">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H12.5C14.9853 3 17 5.01472 17 7.5C17 9.98528 14.9853 12 12.5 12H9V3Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12H12.5C14.9853 12 17 14.0147 17 16.5C17 18.9853 14.9853 21 12.5 21H9V12Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 3H9V12H7C4.79086 12 3 10.2091 3 8C3 5.79086 4.79086 3 7 3Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 12H9V21H7C4.79086 21 3 19.2091 3 17C3 14.7909 4.79086 12 7 12Z" stroke="currentColor" stroke-width="1.6"/></svg>
+                <span data-lang-id="UI UX Aplikasi (Figma)" data-lang-en="App UI/UX (Figma)">UI UX Aplikasi (Figma)</span>
+              </a>
+              <a class="link" href="https://drive.google.com/file/d/1S0AQlm2cxpxY5-FkRuZG34DgcVfOk1f3/view?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Repository SagaHealth di Google Drive">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3H14.5L20 8.5V21H7.5V3Z" stroke="currentColor" stroke-width="1.6"/></svg>
+                Repository (Drive)
+              </a>
+              <a class="link" href="https://drive.google.com/drive/folders/1qWlWOjfoRrfwGj52oq9Biy8J09JXzy8D?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Penulisan Pendukung SagaHealth di Google Drive">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3H14.5L20 8.5V21H7.5V3Z" stroke="currentColor" stroke-width="1.6"/></svg>
+                <span data-lang-id="Penulisan Pendukung (Draft)" data-lang-en="Supporting Documents (Draft)">Penulisan Pendukung (Draft)</span>
+              </a>
+            </div>
+          </div>
+  
+          <div class="project">
+            <div class="project-head">
+              <div>
+                <h3>2) Website Profile Sekolah SLB Raudhatul Zannah</h3>
+                <p data-lang-id="Website profil sekolah untuk menampilkan informasi, program, dan galeri kegiatan dengan tampilan yang ramah pengguna." data-lang-en="School profile website to display information, programs, and activity galleries with a user-friendly design.">Website profil sekolah untuk menampilkan informasi, program, dan galeri kegiatan dengan tampilan yang ramah pengguna.</p>
+              </div>
+              <span class="pill">Website App</span>
+            </div>
+  
+            <div class="links">
+              <a class="link" href="https://slbraudhatulzannah.biz.id" target="_blank" rel="noopener noreferrer" aria-label="Website SLB Raudhatul Zannah">Website</a>
+            </div>
+          </div>
+                
+          <div class="project" style="margin-top: 14px;">
+            <div class="project-head">
+              <div>
+                <h3>3) Project Event To</h3>
+                <p data-lang-id="Project Event To — repository pengembangan aplikasi/website event." data-lang-en="Project Event To — event website/application development repository.">Project Event To — repository pengembangan aplikasi/website event.</p>
+              </div>
+              <span class="pill">Website App</span>
+            </div>
+  
+            <div class="links">
+              <a class="link" href="https://github.com/nabilaaabill/evenTO.git" target="_blank" rel="noopener noreferrer" aria-label="Repositories Project Event To di GitHub">Repositories (GitHub)</a>
+            </div>
+          </div>
+  
+          <div class="project" style="margin-top: 14px;">
+            <div class="project-head">
+              <div>
+                <h3>4) Project Noto</h3>
+                <p data-lang-id="Project Noto — repository pengembangan aplikasi/website pencatatan/notes." data-lang-en="Project Noto — note-taking website/application development repository.">Project Noto — repository pengembangan aplikasi/website pencatatan/notes.</p>
+              </div>
+              <span class="pill">Desktop App</span>
+            </div>
+  
+            <div class="links">
+              <a class="link" href="https://github.com/gilangrp/noto.git" target="_blank" rel="noopener noreferrer" aria-label="Repositories Project Noto di GitHub">Repositories (GitHub)</a>
+            </div>
+          </div>
+  
+           <div class="project" style="margin-top: 14px;">
+            <div class="project-head">
+              <div>
+                <h3>5) Project SafeTana AI</h3>
+                <p data-lang-id="Aplikasi tanggap bencana dan pemeriksaan kesehatan digital berbasis AI dengan integrasi data hazard real-time." data-lang-en="AI-based disaster response and digital health checking application with real-time hazard data integration.">Aplikasi tanggap bencana dan pemeriksaan kesehatan digital berbasis AI dengan integrasi data hazard real-time.</p>
+              </div>
+              <span class="pill">Website App</span>
+            </div>
+  
+            <div class="links">
+              <a class="link" href="https://safetana.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Website SafeTana AI">Website</a>
+              <a class="link" href="https://drive.google.com/drive/folders/1j_ugjEAoVJOomvJTNCuqJF-Y5jaPIse3?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Penulisan Pendukung SafeTana AI di Google Drive">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3H14.5L20 8.5V21H7.5V3Z" stroke="currentColor" stroke-width="1.6"/></svg>
+                <span data-lang-id="Penulisan Pendukung (Draft)" data-lang-en="Supporting Documents (Draft)">Penulisan Pendukung (Draft)</span>
+              </a>
+            </div>
+          </div>
+  
+          <div class="project" style="margin-top: 14px;">
+            <div class="project-head">
+              <div>
+                <h3>6) Project SIDIK-TI</h3>
+                <p data-lang-id="Platform integrasi manajemen infrastruktur IT, standarisasi URL masking, dan sistem validasi pengadaan departemen secara real-time." data-lang-en="IT infrastructure management integration platform, URL masking standardization, and real-time department procurement validation system.">Platform integrasi manajemen infrastruktur IT, standarisasi URL masking, dan sistem validasi pengadaan departemen secara real-time.</p>
+              </div>
+              <span class="pill">Website App</span>
+            </div>
+  
+            <div class="links">
+              <a class="link" href="http://sidik-ti.biz.id" target="_blank" rel="noopener noreferrer" aria-label="Website SIDIK-TI">Website</a>
+            </div>
+          </div>
+        </section>
+  
+        <section id="uiux" class="card">
+          <h2>
+            UI/UX Case Study <span class="pill">Design</span>
+          </h2>
+  
+          <p class="subtitle" style="max-width: 100%; margin-bottom: 14px;" data-lang-id="Kumpulan desain UI/UX untuk beberapa project." data-lang-en="Collection of UI/UX designs for several projects.">Kumpulan desain UI/UX untuk beberapa project.</p>
+  
+          <div class="project" style="margin-bottom: 14px;">
+            <div class="project-head">
+              <div>
+                <h3>UI/UX — Redesign InDrive</h3>
+                <p>Redesign Apps InDrive</p>
+              </div>
+              <span class="pill">UI/UX</span>
+            </div>
+  
+            <div class="links">
+              <a class="link" href="https://www.figma.com/proto/PIPzwMaHh9h9vjC0srGamU/IMK-kelompok-2?node-id=138-896&starting-point-node-id=211%3A9861&t=c6Ioc1MLdg581gMo-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX Website SLB di Figma">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H12.5C14.9853 3 17 5.01472 17 7.5C17 9.98528 14.9853 12 12.5 12H9V3Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12H12.5C14.9853 12 17 14.0147 17 16.5C17 18.9853 14.9853 21 12.5 21H9V12Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 3H9V12H7C4.79086 12 3 10.2091 3 8C3 5.79086 4.79086 3 7 3Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 12H9V21H7C4.79086 21 3 19.2091 3 17C3 14.7909 4.79086 12 7 12Z" stroke="currentColor" stroke-width="1.6"/></svg>
+                <span data-lang-id="File Desain (Figma)" data-lang-en="Design File (Figma)">File Desain (Figma)</span>
+              </a>
+            </div>
+          </div>
+  
+          <div class="project">
+            <div class="project-head">
+              <div>
+                <h3>UI/UX — Project AgrowUp</h3>
+                <p data-lang-id="Rancangan UI Apps Pertanian" data-lang-en="Agriculture App UI Design">Rancangan UI Apps Pertanian</p>
+              </div>
+              <span class="pill">UI/UX</span>
+            </div>
+  
+            <div class="links">
+              <a class="link" href="https://www.figma.com/proto/2qRIobYWNeiQNXX8dXi2ZX/Project-PKM-Kodamas?node-id=81-14&t=MWVmtSi1anjsfoML-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX AgrowUp di Figma">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H12.5C14.9853 3 17 5.01472 17 7.5C17 9.98528 14.9853 12 12.5 12H9V3Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12H12.5C14.9853 12 17 14.0147 17 16.5C17 18.9853 14.9853 21 12.5 21H9V12Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 3H9V12H7C4.79086 12 3 10.2091 3 8C3 5.79086 4.79086 3 7 3Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 12H9V21H7C4.79086 21 3 19.2091 3 17C3 14.7909 4.79086 12 7 12Z" stroke="currentColor" stroke-width="1.6"/></svg>
+                <span data-lang-id="File Desain (Figma)" data-lang-en="Design File (Figma)">File Desain (Figma)</span>
+              </a>
+            </div>
+          </div>
+        </section>
+  
+        <section id="jurnal" class="card">
+          <h2>
+            <span data-lang-id="Jurnal dan Artikel Publikasi" data-lang-en="Journals and Articles Publication">Jurnal dan Artikel Publikasi</span> 
+            <span class="pill" data-lang-id="Publikasi" data-lang-en="Publications">Publikasi</span>
+          </h2>
           <ul class="list">
             <li class="row">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 12C14.2091 12 16 10.2091 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8C8 10.2091 9.79086 12 12 12Z" stroke="currentColor" stroke-width="1.6"/><path d="M4 20C4 16.6863 7.58172 14 12 14C16.4183 14 20 16.6863 20 20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-              </div>
               <div class="meta">
-                <p class="label" data-lang-id="Nama" data-lang-en="Name">Nama</p>
-                <p class="value">Septiawan Hadi Prasetyo</p>
+                <p class="label" data-lang-id="PENGGUNAAN TEKNOLOGI WEARABLE: UNTUK OPTIMALISASI KEBUTUHAN ATLET DAN MASYARAKAT DALAM BEROLAHRAGA (2024)" data-lang-en="THE USE OF WEARABLE TECHNOLOGY: FOR OPTIMIZATION OF ATHLETE AND PUBLIC NEEDS IN SPORTS (2024)">PENGGUNAAN TEKNOLOGI WEARABLE: UNTUK OPTIMALISASI KEBUTUHAN ATLET DAN MASYARAKAT DALAM BEROLAHRAGA (2024)</p>
+                <p class="value"><a href="https://share.google/cIGWU3pLw7lsQMdRJ" target="_blank"><span data-lang-id="Link Jurnal" data-lang-en="Journal Link">Link Jurnal</span></a> • Jurnal Multidisiplin Inovatif</p>
               </div>
             </li>
-
             <li class="row">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 6.5V17.5C4 18.3284 4.67157 19 5.5 19H18.5C19.3284 19 20 18.3284 20 17.5V6.5C20 5.67157 19.3284 5 18.5 5H5.5C4.67157 5 4 5.67157 4 6.5Z" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 7.5L12 12L17.5 7.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
               <div class="meta">
-                <p class="label">Email</p>
-                <p class="value"><a href="mailto:septiawanhadi38@gmail.com?subject=Kontak%20dari%20Portofolio">septiawanhadi38@gmail.com</a></p>
+                <p class="label" data-lang-id="Audiensi Pemilu BEM Kampus UPI di Cibiru (2025)" data-lang-en="BEM Election Audience at UPI Cibiru Campus (2025)">Audiensi Pemilu BEM Kampus UPI di Cibiru (2025)</p>
+                <p class="value"><a href="https://kd-cibiru.upi.edu/index.php/component/content/article/audiensi-pemilu-bem-kampus-upi-di-cibiru?catid=28&Itemid=101" target="_blank"><span data-lang-id="Link Artikel" data-lang-en="Article Link">Link Artikel</span></a> • UPI Cibiru</p>
+              </div>
+            </li>
+            <li class="row">
+              <div class="meta">
+                <p class="label" data-lang-id="Pemilu BEM Tahun 2025 di Kampus UPI Cibiru: MPU, DPPU, dan KPU Siap Jalankan Tugas (2025)" data-lang-en="2025 BEM Election at UPI Cibiru Campus: MPU, DPPU, and KPU Ready to Execute Duties (2025)">Pemilu BEM Tahun 2025 di Kampus UPI Cibiru: MPU, DPPU, dan KPU Siap Jalankan Tugas (2025)</p>
+                <p class="value"><a href="https://kd-cibiru.upi.edu/index.php/component/content/article/pemilu-bem-tahun-2025-di-kampus-upi-cibiru-mpu-dppu-dan-kpu-siap-jalankan-tugas?catid=28&Itemid=101" target="_blank"><span data-lang-id="Link Artikel" data-lang-en="Article Link">Link Artikel</span></a> • UPI Cibiru</p>
               </div>
             </li>
           </ul>
+        </section>
+  
+                <section id="sertifikat" class="card">
+          <h2>
+            <span data-lang-id="Sertifikat Pendukung" data-lang-en="Supporting Certificates">Sertifikat Pendukung</span>
+            <span class="pill" data-lang-id="Sertifikasi" data-lang-en="Certifications">Sertifikasi</span>
+          </h2>
 
-          <ul class="list">
-            <li class="row">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21S18 16.5 18 11.5C18 8.18629 15.3137 5.5 12 5.5C8.68629 5.5 6 8.18629 6 11.5C6 16.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.6"/><path d="M12 12.5C13.1046 12.5 14 11.6046 14 10.5C14 9.39543 13.1046 8.5 12 8.5C10.8954 8.5 10 9.39543 10 10.5C10 11.6046 10.8954 12.5 12 12.5Z" stroke="currentColor" stroke-width="1.6"/></svg>
-              </div>
-              <div class="meta">
-                <p class="label" data-lang-id="Domisili" data-lang-en="Domicile">Domisili</p>
-                <p class="value" data-lang-id="Ciwidey, Kabupaten Bandung, Jawabarat, Indonesia" data-lang-en="Ciwidey, Bandung Regency, West Java, Indonesia">Ciwidey, Kabupaten Bandung, Jawabarat, Indonesia</p>
-              </div>
-            </li>
+          <div class="cert-grid">
 
-            <li class="row">
-              <div class="icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L20 6.5V17.5L12 22L4 17.5V6.5L12 2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 22V12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M20 6.5L12 12L4 6.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </div>
-              <div class="meta">
-                <p class="label" data-lang-id="Keahlian" data-lang-en="Skills">Keahlian</p>
-                <p class="value" data-lang-id="UI/UX Design, Web Development, Penulisan Ilmiah" data-lang-en="UI/UX Design, Web Development, Scientific Writing">UI/UX Design, Web Development, Penulisan Ilmiah</p>
-              </div>
-            </li>
-          </ul>
-        </div>
-
-        <div style="margin-top: 14px;">
-          <div class="row" style="align-items: center;">
-            <div class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 7H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7 12H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M7 17H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M6 3H18C19.1046 3 20 3.89543 20 5V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V5C4 3.89543 4.89543 3 6 3Z" stroke="currentColor" stroke-width="1.6"/></svg>
+            <div class="cert-card" onclick="openCertModal('https://drive.google.com/file/d/1-6M3hORlW1Fasstt0UXFLItD31BH5itw/preview','Belajar Dasar AI','Dicoding Indonesia')">
+              <div class="cert-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div>
+              <div class="cert-info"><p class="cert-name">Belajar Dasar AI</p><p class="cert-issuer">Dicoding Indonesia</p></div>
+              <span class="cert-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview</span>
             </div>
-            <div class="meta">
-              <p class="label" data-lang-id="Ringkasan" data-lang-en="Summary">Ringkasan</p>
-              <p class="value" data-lang-id="Menjembatani celah antara kebutuhan pengguna dan kompleksitas teknologi melalui pendekatan berbasis riset. Sebagai pengembang yang menguasai UI/UX dan Web Development, saya mengedepankan Human-Centered Design dalam setiap baris kode dan elemen visual yang saya buat. Terbiasa menangani proyek dengan integrasi sistem pihak ketiga dan manajemen tim yang adaptif, saya berorientasi pada penciptaan produk yang stabil, estetik, dan skalabel." data-lang-en="Bridging the gap between user needs and technological complexity through a research-based approach. As a developer specializing in UI/UX and Web Development, I prioritize Human-Centered Design in every line of code and visual element I create. Experienced in handling projects with third-party system integrations and adaptive team management, I am oriented toward building stable, aesthetic, and scalable products.">Menjembatani celah antara kebutuhan pengguna dan kompleksitas teknologi melalui pendekatan berbasis riset. Sebagai pengembang yang menguasai UI/UX dan Web Development, saya mengedepankan Human-Centered Design dalam setiap baris kode dan elemen visual yang saya buat. Terbiasa menangani proyek dengan integrasi sistem pihak ketiga dan manajemen tim yang adaptif, saya berorientasi pada penciptaan produk yang stabil, estetik, dan skalabel.</p>
+
+            <div class="cert-card" onclick="openCertModal('https://drive.google.com/file/d/1mfoGZoTE99Xsdm94tDzI_KccPsPihL9k/preview','Belajar Dasar Google Cloud','Dicoding Indonesia')">
+              <div class="cert-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div>
+              <div class="cert-info"><p class="cert-name">Belajar Dasar Google Cloud</p><p class="cert-issuer">Dicoding Indonesia</p></div>
+              <span class="cert-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview</span>
             </div>
+
+            <div class="cert-card" onclick="openCertModal('https://drive.google.com/file/d/1CuXcjbPL7ZLZYnHb6o6ddXziStuUrjfd/preview','Belajar Dasar SQL','Dicoding Indonesia')">
+              <div class="cert-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div>
+              <div class="cert-info"><p class="cert-name">Belajar Dasar SQL</p><p class="cert-issuer">Dicoding Indonesia</p></div>
+              <span class="cert-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview</span>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('https://drive.google.com/file/d/19kI_c15qLTrLUeIwDwoFGPQrKhSa8_JE/preview','Belajar Data Science','Dicoding Indonesia')">
+              <div class="cert-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div>
+              <div class="cert-info"><p class="cert-name">Belajar Data Science</p><p class="cert-issuer">Dicoding Indonesia</p></div>
+              <span class="cert-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview</span>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('https://drive.google.com/file/d/1SAwTy58cB2U3_fQqhDk5uyiavNVxcPj4/preview','Belajar Fundamental Pemrosesan Data','Dicoding Indonesia')">
+              <div class="cert-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div>
+              <div class="cert-info"><p class="cert-name">Belajar Fundamental Pemrosesan Data</p><p class="cert-issuer">Dicoding Indonesia</p></div>
+              <span class="cert-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview</span>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('https://drive.google.com/file/d/1qvARf2hZov479CelRWJZOfMf3hlXgISl/preview','Belajar Machine Learning untuk Pemula','Dicoding Indonesia')">
+              <div class="cert-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div>
+              <div class="cert-info"><p class="cert-name">Belajar Machine Learning untuk Pemula</p><p class="cert-issuer">Dicoding Indonesia</p></div>
+              <span class="cert-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview</span>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('https://drive.google.com/file/d/1Q_iYjH4g5q9YYifDpjPgeH10bNEJRckx/preview','Data Science dengan Microsoft Fabric','Dicoding Indonesia')">
+              <div class="cert-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div>
+              <div class="cert-info"><p class="cert-name">Data Science dengan Microsoft Fabric</p><p class="cert-issuer">Dicoding Indonesia</p></div>
+              <span class="cert-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview</span>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('https://drive.google.com/file/d/1Y-vX05YhvJOsudZGbPwI9mBa46kLdvVg/preview','Financial Literacy','Dicoding Indonesia')">
+              <div class="cert-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div>
+              <div class="cert-info"><p class="cert-name">Financial Literacy</p><p class="cert-issuer">Dicoding Indonesia</p></div>
+              <span class="cert-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview</span>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('https://drive.google.com/file/d/1Sopfz12Wa6Gqo5crLE4shWLWeZhWHx_l/preview','Membangun Aplikasi Gen AI — Azure','Dicoding Indonesia')">
+              <div class="cert-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div>
+              <div class="cert-info"><p class="cert-name">Membangun Aplikasi Gen AI — Azure</p><p class="cert-issuer">Dicoding Indonesia</p></div>
+              <span class="cert-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview</span>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('https://drive.google.com/file/d/1usquKtWZDpCUb1pEQhZgfOLPJfN5s-x8/preview','Memulai Pemrograman dengan Python','Dicoding Indonesia')">
+              <div class="cert-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div>
+              <div class="cert-info"><p class="cert-name">Memulai Pemrograman dengan Python</p><p class="cert-issuer">Dicoding Indonesia</p></div>
+              <span class="cert-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview</span>
+            </div>
+
+            <div class="cert-card" onclick="openCertModal('https://drive.google.com/file/d/1OVH5U5PXfVO1s5gpO8Zpl02oUznb6imt/preview','Prompt Engineering untuk Software Developer','Dicoding Indonesia')">
+              <div class="cert-thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 12h8M8 8h8M8 16h5"/></svg></div>
+              <div class="cert-info"><p class="cert-name">Prompt Engineering untuk Software Developer</p><p class="cert-issuer">Dicoding Indonesia</p></div>
+              <span class="cert-preview-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Preview</span>
+            </div>
+
           </div>
-        </div>
-      </section>
-
-      <section id="portfolio" class="card">
-        <h2>
-          <span data-lang-id="Portofolio" data-lang-en="Portfolio">Portofolio</span> 
-          <span class="pill" data-lang-id="Proyek" data-lang-en="Projects">Proyek</span>
-        </h2>
-
-        <div class="project" style="margin-bottom: 14px;">
-          <div class="project-head">
-            <div>
-              <h3>1) SagaHealth</h3>
-              <p data-lang-id="Proyek aplikasi kesehatan. Berisi desain UI/UX, repository pengembangan aplikasi, dan penulisan pendukung." data-lang-en="Health application project. Contains UI/UX designs, application development repository, and supporting documentation.">Proyek aplikasi kesehatan. Berisi desain UI/UX, repository pengembangan aplikasi, dan penulisan pendukung.</p>
-            </div>
-            <span class="pill">Website App</span>
-          </div>
-
-          <div class="links">
-            <a class="link" href="https://www.figma.com/proto/uBN4ZNniZwLnaX6oNHdmtl/SAGAHEALTH?node-id=92-93&starting-point-node-id=122%3A8&t=Jkmv4hxAp6mAhRpS-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX Aplikasi SagaHealth di Figma">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H12.5C14.9853 3 17 5.01472 17 7.5C17 9.98528 14.9853 12 12.5 12H9V3Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12H12.5C14.9853 12 17 14.0147 17 16.5C17 18.9853 14.9853 21 12.5 21H9V12Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 3H9V12H7C4.79086 12 3 10.2091 3 8C3 5.79086 4.79086 3 7 3Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 12H9V21H7C4.79086 21 3 19.2091 3 17C3 14.7909 4.79086 12 7 12Z" stroke="currentColor" stroke-width="1.6"/></svg>
-              <span data-lang-id="UI UX Aplikasi (Figma)" data-lang-en="App UI/UX (Figma)">UI UX Aplikasi (Figma)</span>
-            </a>
-            <a class="link" href="https://drive.google.com/file/d/1S0AQlm2cxpxY5-FkRuZG34DgcVfOk1f3/view?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Repository SagaHealth di Google Drive">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3H14.5L20 8.5V21H7.5V3Z" stroke="currentColor" stroke-width="1.6"/></svg>
-              Repository (Drive)
-            </a>
-            <a class="link" href="https://drive.google.com/drive/folders/1qWlWOjfoRrfwGj52oq9Biy8J09JXzy8D?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Penulisan Pendukung SagaHealth di Google Drive">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3H14.5L20 8.5V21H7.5V3Z" stroke="currentColor" stroke-width="1.6"/></svg>
-              <span data-lang-id="Penulisan Pendukung (Draft)" data-lang-en="Supporting Documents (Draft)">Penulisan Pendukung (Draft)</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="project">
-          <div class="project-head">
-            <div>
-              <h3>2) Website Profile Sekolah SLB Raudhatul Zannah</h3>
-              <p data-lang-id="Website profil sekolah untuk menampilkan informasi, program, dan galeri kegiatan dengan tampilan yang ramah pengguna." data-lang-en="School profile website to display information, programs, and activity galleries with a user-friendly design.">Website profil sekolah untuk menampilkan informasi, program, dan galeri kegiatan dengan tampilan yang ramah pengguna.</p>
-            </div>
-            <span class="pill">Website App</span>
-          </div>
-
-          <div class="links">
-            <a class="link" href="https://slbraudhatulzannah.biz.id" target="_blank" rel="noopener noreferrer" aria-label="Website SLB Raudhatul Zannah">Website</a>
-          </div>
-        </div>
-              
-        <div class="project" style="margin-top: 14px;">
-          <div class="project-head">
-            <div>
-              <h3>3) Project Event To</h3>
-              <p data-lang-id="Project Event To — repository pengembangan aplikasi/website event." data-lang-en="Project Event To — event website/application development repository.">Project Event To — repository pengembangan aplikasi/website event.</p>
-            </div>
-            <span class="pill">Website App</span>
-          </div>
-
-          <div class="links">
-            <a class="link" href="https://github.com/nabilaaabill/evenTO.git" target="_blank" rel="noopener noreferrer" aria-label="Repositories Project Event To di GitHub">Repositories (GitHub)</a>
-          </div>
-        </div>
-
-        <div class="project" style="margin-top: 14px;">
-          <div class="project-head">
-            <div>
-              <h3>4) Project Noto</h3>
-              <p data-lang-id="Project Noto — repository pengembangan aplikasi/website pencatatan/notes." data-lang-en="Project Noto — note-taking website/application development repository.">Project Noto — repository pengembangan aplikasi/website pencatatan/notes.</p>
-            </div>
-            <span class="pill">Desktop App</span>
-          </div>
-
-          <div class="links">
-            <a class="link" href="https://github.com/gilangrp/noto.git" target="_blank" rel="noopener noreferrer" aria-label="Repositories Project Noto di GitHub">Repositories (GitHub)</a>
-          </div>
-        </div>
-
-         <div class="project" style="margin-top: 14px;">
-          <div class="project-head">
-            <div>
-              <h3>5) Project SafeTana AI</h3>
-              <p data-lang-id="Aplikasi tanggap bencana dan pemeriksaan kesehatan digital berbasis AI dengan integrasi data hazard real-time." data-lang-en="AI-based disaster response and digital health checking application with real-time hazard data integration.">Aplikasi tanggap bencana dan pemeriksaan kesehatan digital berbasis AI dengan integrasi data hazard real-time.</p>
-            </div>
-            <span class="pill">Website App</span>
-          </div>
-
-          <div class="links">
-            <a class="link" href="https://safetana.vercel.app/" target="_blank" rel="noopener noreferrer" aria-label="Website SafeTana AI">Website</a>
-            <a class="link" href="https://drive.google.com/drive/folders/1j_ugjEAoVJOomvJTNCuqJF-Y5jaPIse3?usp=drive_link" target="_blank" rel="noopener noreferrer" aria-label="Penulisan Pendukung SafeTana AI di Google Drive">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.5 3H14.5L20 8.5V21H7.5V3Z" stroke="currentColor" stroke-width="1.6"/></svg>
-              <span data-lang-id="Penulisan Pendukung (Draft)" data-lang-en="Supporting Documents (Draft)">Penulisan Pendukung (Draft)</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="project" style="margin-top: 14px;">
-          <div class="project-head">
-            <div>
-              <h3>6) Project SIDIK-TI</h3>
-              <p data-lang-id="Platform integrasi manajemen infrastruktur IT, standarisasi URL masking, dan sistem validasi pengadaan departemen secara real-time." data-lang-en="IT infrastructure management integration platform, URL masking standardization, and real-time department procurement validation system.">Platform integrasi manajemen infrastruktur IT, standarisasi URL masking, dan sistem validasi pengadaan departemen secara real-time.</p>
-            </div>
-            <span class="pill">Website App</span>
-          </div>
-
-          <div class="links">
-            <a class="link" href="http://sidik-ti.biz.id" target="_blank" rel="noopener noreferrer" aria-label="Website SIDIK-TI">Website</a>
-          </div>
-        </div>
-        
-      </section>
-
-      <section id="uiux" class="card">
-        <h2>
-          UI/UX Case Study <span class="pill">Design</span>
-        </h2>
-
-        <p class="subtitle" style="max-width: 100%; margin-bottom: 14px;" data-lang-id="Kumpulan desain UI/UX untuk beberapa project." data-lang-en="Collection of UI/UX designs for several projects.">Kumpulan desain UI/UX untuk beberapa project.</p>
-
-        <div class="project" style="margin-bottom: 14px;">
-          <div class="project-head">
-            <div>
-              <h3>UI/UX — Redesign InDrive</h3>
-              <p>Redesign Apps InDrive</p>
-            </div>
-            <span class="pill">UI/UX</span>
-          </div>
-
-          <div class="links">
-            <a class="link" href="https://www.figma.com/proto/PIPzwMaHh9h9vjC0srGamU/IMK-kelompok-2?node-id=138-896&starting-point-node-id=211%3A9861&t=c6Ioc1MLdg581gMo-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX Website SLB di Figma">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H12.5C14.9853 3 17 5.01472 17 7.5C17 9.98528 14.9853 12 12.5 12H9V3Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12H12.5C14.9853 12 17 14.0147 17 16.5C17 18.9853 14.9853 21 12.5 21H9V12Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 3H9V12H7C4.79086 12 3 10.2091 3 8C3 5.79086 4.79086 3 7 3Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 12H9V21H7C4.79086 21 3 19.2091 3 17C3 14.7909 4.79086 12 7 12Z" stroke="currentColor" stroke-width="1.6"/></svg>
-              <span data-lang-id="File Desain (Figma)" data-lang-en="Design File (Figma)">File Desain (Figma)</span>
-            </a>
-          </div>
-        </div>
-
-        <div class="project">
-          <div class="project-head">
-            <div>
-              <h3>UI/UX — Project AgrowUp</h3>
-              <p data-lang-id="Rancangan UI Apps Pertanian" data-lang-en="Agriculture App UI Design">Rancangan UI Apps Pertanian</p>
-            </div>
-            <span class="pill">UI/UX</span>
-          </div>
-
-          <div class="links">
-            <a class="link" href="https://www.figma.com/proto/2qRIobYWNeiQNXX8dXi2ZX/Project-PKM-Kodamas?node-id=81-14&t=MWVmtSi1anjsfoML-1" target="_blank" rel="noopener noreferrer" aria-label="UI UX AgrowUp di Figma">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 3H12.5C14.9853 3 17 5.01472 17 7.5C17 9.98528 14.9853 12 12.5 12H9V3Z" stroke="currentColor" stroke-width="1.6"/><path d="M9 12H12.5C14.9853 12 17 14.0147 17 16.5C17 18.9853 14.9853 21 12.5 21H9V12Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 3H9V12H7C4.79086 12 3 10.2091 3 8C3 5.79086 4.79086 3 7 3Z" stroke="currentColor" stroke-width="1.6"/><path d="M7 12H9V21H7C4.79086 21 3 19.2091 3 17C3 14.7909 4.79086 12 7 12Z" stroke="currentColor" stroke-width="1.6"/></svg>
-              <span data-lang-id="File Desain (Figma)" data-lang-en="Design File (Figma)">File Desain (Figma)</span>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section id="jurnal" class="card">
-        <h2>
-          <span data-lang-id="Jurnal dan Artikel Publikasi" data-lang-en="Journals and Articles Publication">Jurnal dan Artikel Publikasi</span> 
-          <span class="pill" data-lang-id="Publikasi" data-lang-en="Publications">Publikasi</span>
-        </h2>
-        <ul class="list">
-          <li class="row">
-            <div class="meta">
-              <p class="label" data-lang-id="PENGGUNAAN TEKNOLOGI WEARABLE: UNTUK OPTIMALISASI KEBUTUHAN ATLET DAN MASYARAKAT DALAM BEROLAHRAGA (2024)" data-lang-en="THE USE OF WEARABLE TECHNOLOGY: FOR OPTIMIZATION OF ATHLETE AND PUBLIC NEEDS IN SPORTS (2024)">PENGGUNAAN TEKNOLOGI WEARABLE: UNTUK OPTIMALISASI KEBUTUHAN ATLET DAN MASYARAKAT DALAM BEROLAHRAGA (2024)</p>
-              <p class="value"><a href="https://share.google/cIGWU3pLw7lsQMdRJ" target="_blank"><span data-lang-id="Link Jurnal" data-lang-en="Journal Link">Link Jurnal</span></a> • Jurnal Multidisiplin Inovatif</p>
-            </div>
-          </li>
-          <li class="row">
-            <div class="meta">
-              <p class="label" data-lang-id="Audiensi Pemilu BEM Kampus UPI di Cibiru (2025)" data-lang-en="BEM Election Audience at UPI Cibiru Campus (2025)">Audiensi Pemilu BEM Kampus UPI di Cibiru (2025)</p>
-              <p class="value"><a href="https://kd-cibiru.upi.edu/index.php/component/content/article/audiensi-pemilu-bem-kampus-upi-di-cibiru?catid=28&Itemid=101" target="_blank"><span data-lang-id="Link Artikel" data-lang-en="Article Link">Link Artikel</span></a> • UPI Cibiru</p>
-            </div>
-          </li>
-          <li class="row">
-            <div class="meta">
-              <p class="label" data-lang-id="Pemilu BEM Tahun 2025 di Kampus UPI Cibiru: MPU, DPPU, dan KPU Siap Jalankan Tugas (2025)" data-lang-en="2025 BEM Election at UPI Cibiru Campus: MPU, DPPU, and KPU Ready to Execute Duties (2025)">Pemilu BEM Tahun 2025 di Kampus UPI Cibiru: MPU, DPPU, dan KPU Siap Jalankan Tugas (2025)</p>
-              <p class="value"><a href="https://kd-cibiru.upi.edu/index.php/component/content/article/pemilu-bem-tahun-2025-di-kampus-upi-cibiru-mpu-dppu-dan-kpu-siap-jalankan-tugas?catid=28&Itemid=101" target="_blank"><span data-lang-id="Link Artikel" data-lang-en="Article Link">Link Artikel</span></a> • UPI Cibiru</p>
-            </div>
-          </li>
-        </ul>
-      </section>
-
-      <!-- BAGIAN SERTIFIKAT BARU DITAMBAHKAN DI SINI -->
-      <section id="sertifikat" class="card">
-        <h2>
-          <span data-lang-id="Sertifikat Pendukung" data-lang-en="Supporting Certificates">Sertifikat Pendukung</span> 
-          <span class="pill" data-lang-id="Sertifikasi" data-lang-en="Certifications">Sertifikasi</span>
-        </h2>
-        <ul class="list" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px;">
-          <li class="row">
-            <div class="meta">
-              <p class="label">Belajar Dasar AI</p>
-              <p class="value">Dicoding Indonesia</p>
-              <p class="value">
-                <a href="https://drive.google.com/file/d/1-6M3hORlW1Fasstt0UXFLItD31BH5itw/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Sertifikat Belajar Dasar Google Cloud di Dicoding">Lihat Sertifikat</a>
-              </p>
-            </div>
-          </li>
-          <li class="row">
-            <div class="meta">
-              <p class="label">Belajar Dasar Google Cloud</p>
-              <p class="value">Dicoding Indonesia</p>
-              <p class="value">
-                <a href="https://drive.google.com/file/d/1mfoGZoTE99Xsdm94tDzI_KccPsPihL9k/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Sertifikat Belajar Dasar Google Cloud di Dicoding">Lihat Sertifikat</a>
-              </p>
-            </div>
-          </li>
-          <li class="row">
-            <div class="meta">
-              <p class="label">Belajar Dasar Structured Query Language (SQL)</p>
-              <p class="value">Dicoding Indonesia</p>
-              <p class="value">
-                <a href="https://drive.google.com/file/d/1CuXcjbPL7ZLZYnHb6o6ddXziStuUrjfd/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Sertifikat Belajar Dasar Structured Query Language (SQL) di Dicoding">Lihat Sertifikat</a>
-              </p>
-            </div>
-          </li>
-          <li class="row">
-            <div class="meta">
-              <p class="label">Belajar Data Science</p>
-              <p class="value">Dicoding Indonesia</p>
-              <p class="value">
-                <a href="https://drive.google.com/file/d/19kI_c15qLTrLUeIwDwoFGPQrKhSa8_JE/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Sertifikat Belajar Data Science di Dicoding">Lihat Sertifikat</a>
-              </p>
-            </div>
-          </li>
-          <li class="row">
-            <div class="meta">
-              <p class="label">Belajar Fundamental Pemrosesan Data</p>
-              <p class="value">Dicoding Indonesia</p>
-              <p class="value">
-                <a href="https://drive.google.com/file/d/1SAwTy58cB2U3_fQqhDk5uyiavNVxcPj4/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Sertifikat Belajar Fundamental Pemrosesan Data di Dicoding">Lihat Sertifikat</a>
-              </p>
-            </div>
-          </li>
-          <li class="row">
-            <div class="meta">
-              <p class="label">Belajar Machine Learning untuk Pemula</p>
-              <p class="value">Dicoding Indonesia</p>
-              <p class="value">
-                <a href="https://drive.google.com/file/d/1qvARf2hZov479CelRWJZOfMf3hlXgISl/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Sertifikat Belajar Machine Learning untuk Pemula di Dicoding">Lihat Sertifikat</a>
-              </p>
-            </div>
-          </li>
-          <li class="row">
-            <div class="meta">
-              <p class="label">Belajar Penerapan Data Science dengan Microsoft Fabric</p>
-              <p class="value">Dicoding Indonesia</p>
-              <p class="value">
-                <a href="https://drive.google.com/file/d/1Q_iYjH4g5q9YYifDpjPgeH10bNEJRckx/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Sertifikat Belajar Penerapan Data Science dengan Microsoft Fabric di Dicoding">Lihat Sertifikat</a>
-              </p>
-            </div>
-          </li>
-          <li class="row">
-            <div class="meta">
-              <p class="label">Financial Literacy</p>
-              <p class="value">Dicoding Indonesia</p>
-              <p class="value">
-                <a href="https://drive.google.com/file/d/1Y-vX05YhvJOsudZGbPwI9mBa46kLdvVg/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Sertifikat Belajar Dasar Structured Query Language (SQL) di Dicoding">Lihat Sertifikat</a>
-              </p>
-            </div>
-          </li>
-          <li class="row">
-            <div class="meta">
-              <p class="label">Membangun Aplikasi Gen AI dengan Microsoft Azure</p>
-              <p class="value">Dicoding Indonesia</p>
-              <p class="value">
-                <a href="https://drive.google.com/file/d/1Sopfz12Wa6Gqo5crLE4shWLWeZhWHx_l/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Sertifikat Membangun Aplikasi Gen AI dengan Microsoft Azure di Dicoding">Lihat Sertifikat</a>
-              </p>
-            </div>
-          </li>
-          <li class="row">
-            <div class="meta">
-              <p class="label">Memulai Pemrograman dengan Python</p>
-              <p class="value">Dicoding Indonesia</p>
-              <p class="value">
-                <a href="https://drive.google.com/file/d/1usquKtWZDpCUb1pEQhZgfOLPJfN5s-x8/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Sertifikat Memulai Pemrograman dengan Python di Dicoding">Lihat Sertifikat</a>
-            </div>
-          </li>
-          <li class="row">
-            <div class="meta">
-              <p class="label">Prompt Engineering untuk Software Developer</p>
-              <p class="value">Dicoding Indonesia</p>
-              <p class="value">
-                <a href="https://drive.google.com/file/d/1OVH5U5PXfVO1s5gpO8Zpl02oUznb6imt/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Sertifikat Memulai Pemrograman dengan Python di Dicoding">Lihat Sertifikat</a>
-            </div>
-          </li>
-        </ul>
-      </section>
-
-      <footer>
-        <p data-lang-id="© 2026 Portofolio Pribadi • Dibuat dengan HTML sederhana" data-lang-en="© 2026 Personal Portfolio • Built with simple HTML">© 2026 Portofolio Pribadi • Dibuat dengan HTML sederhana</p>
-      </footer>
-    </main>
+        </section>
+      </main>
+    </div>
   </div>
 
   <script>
@@ -905,7 +1464,7 @@
 
       langToggle.addEventListener('click', () => {
         window.currentLang = window.currentLang === 'id' ? 'en' : 'id';
-        
+
         // Perbarui teks tombol toggle
         langText.innerText = window.currentLang === 'id' ? 'English' : 'Indonesia';
 
@@ -918,11 +1477,232 @@
         });
 
         // Perbarui Judul Dokumen (Tab Browser)
-        docTitle.innerText = window.currentLang === 'id' 
-          ? "Portofolio Septiawan Hadi Prasetyo" 
+        docTitle.innerText = window.currentLang === 'id'
+          ? "Portofolio Septiawan Hadi Prasetyo"
           : "Septiawan Hadi Prasetyo's Portfolio";
       });
     })();
+
+    // --- Efek Hujan & Petir Badai ---
+    (function () {
+      const canvas = document.getElementById('rain-canvas');
+      const lightningFlash = document.getElementById('lightning-flash');
+      const toggleBtn = document.getElementById('toggleEffects');
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+      let animationFrameId;
+      let isStormActive = true;
+      let width = (canvas.width = window.innerWidth);
+      let height = (canvas.height = window.innerHeight);
+
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+      });
+
+      // Raindrop Class
+      class Drop {
+        constructor() {
+          this.reset();
+          this.y = Math.random() * height; // scatter vertically at start
+        }
+
+        reset() {
+          this.x = Math.random() * width;
+          this.y = -20;
+          this.length = Math.random() * 20 + 15;
+          this.speed = Math.random() * 15 + 18; // fast storm speed
+          this.opacity = Math.random() * 0.15 + 0.05;
+          this.angle = -0.05 - Math.random() * 0.05; // slanted left for storm wind
+        }
+
+        update() {
+          this.y += this.speed;
+          this.x += this.speed * this.angle;
+
+          if (this.y > height || this.x < -20 || this.x > width + 20) {
+            this.reset();
+          }
+        }
+
+        draw() {
+          ctx.strokeStyle = `rgba(156, 163, 175, ${this.opacity})`;
+          ctx.lineWidth = 1.2;
+          ctx.beginPath();
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(this.x + this.length * this.angle, this.y + this.length);
+          ctx.stroke();
+        }
+      }
+
+      // Spawn drops
+      const maxDrops = 180;
+      const drops = [];
+      for (let i = 0; i < maxDrops; i++) {
+        drops.push(new Drop());
+      }
+
+      // Lightning setup
+      let lastFlashTime = Date.now();
+      let nextFlashDelay = Math.random() * 10000 + 8000;
+
+      function triggerLightning() {
+        if (!isStormActive) return;
+        const doubleFlash = Math.random() > 0.4;
+        
+        // Flash 1
+        lightningFlash.style.opacity = '0.12';
+        setTimeout(() => {
+          lightningFlash.style.opacity = '0';
+          
+          // Flash 2 (occasional double flash for realism)
+          if (doubleFlash) {
+            setTimeout(() => {
+              lightningFlash.style.opacity = '0.18';
+              setTimeout(() => {
+                lightningFlash.style.opacity = '0';
+              }, 60);
+            }, 100);
+          }
+        }, 50);
+      }
+
+      // Animation Loop
+      function animate() {
+        ctx.clearRect(0, 0, width, height);
+
+        if (isStormActive) {
+          for (let i = 0; i < drops.length; i++) {
+            drops[i].update();
+            drops[i].draw();
+          }
+
+          const now = Date.now();
+          if (now - lastFlashTime > nextFlashDelay) {
+            triggerLightning();
+            lastFlashTime = now;
+            nextFlashDelay = Math.random() * 12000 + 8000;
+          }
+        }
+
+        animationFrameId = requestAnimationFrame(animate);
+      }
+
+      // Start loop
+      animate();
+
+
+      // Toggle effects control
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          isStormActive = !isStormActive;
+          if (isStormActive) {
+            toggleBtn.style.color = 'var(--accent-secondary)';
+            toggleBtn.style.borderColor = 'var(--accent)';
+            toggleBtn.title = 'Matikan Efek Badai';
+            toggleBtn.innerHTML = `
+              <svg id="storm-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25" />
+                <line x1="8" y1="16" x2="8" y2="22" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="16" y1="16" x2="16" y2="22" />
+              </svg>
+            `;
+          } else {
+            ctx.clearRect(0, 0, width, height);
+            toggleBtn.style.color = 'var(--text-muted)';
+            toggleBtn.style.borderColor = 'var(--glass-border)';
+            toggleBtn.title = 'Aktifkan Efek Badai';
+            toggleBtn.innerHTML = `
+              <svg id="storm-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v2M4.93 4.93l1.41 1.41M2 12h2M6.34 17.66l-1.41 1.41M12 20v2M17.66 17.66l1.41 1.41M20 12h2M16.24 6.34l1.41-1.41"/>
+              </svg>
+            `;
+          }
+        });
+      }
+    })();
+
+    // --- Logika Tab Switching ---
+    (function () {
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+      const viewProjectsBtn = document.getElementById('hero-view-projects');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetId = btn.getAttribute('data-target');
+          
+          // Deactivate all buttons
+          tabBtns.forEach(b => b.classList.remove('active'));
+          // Deactivate all contents
+          tabContents.forEach(c => c.classList.remove('active'));
+          
+          // Activate current button and content
+          btn.classList.add('active');
+          const targetContent = document.getElementById(targetId);
+          if (targetContent) {
+            targetContent.classList.add('active');
+            
+            // Scroll to navigation container slowly
+            const nav = document.querySelector('.nav-tabs');
+            if (nav) {
+              nav.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
+      });
+
+      // "Lihat Proyek" button trigger
+      if (viewProjectsBtn) {
+        viewProjectsBtn.addEventListener('click', () => {
+          const showcaseBtn = document.getElementById('tab-showcase-btn');
+          if (showcaseBtn) showcaseBtn.click();
+        });
+      }
+    })();
+  </script>
+
+  <!-- CERTIFICATE LIGHTBOX MODAL -->
+  <div class="cert-modal-overlay" id="certModalOverlay" onclick="closeCertModal(event)">
+    <div class="cert-modal" id="certModal">
+      <div class="cert-modal-header">
+        <div class="cert-modal-title">
+          <strong id="certModalName">Sertifikat</strong>
+          <span id="certModalIssuer">Issuer</span>
+        </div>
+        <button class="cert-modal-close" onclick="closeCertModal(null)" aria-label="Tutup">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="cert-modal-body">
+        <iframe id="certModalFrame" src="" allowfullscreen title="Preview Sertifikat"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openCertModal(url, name, issuer) {
+      document.getElementById('certModalName').textContent = name;
+      document.getElementById('certModalIssuer').textContent = issuer;
+      document.getElementById('certModalFrame').src = url;
+      document.getElementById('certModalOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCertModal(e) {
+      if (e && e.target !== document.getElementById('certModalOverlay')) return;
+      document.getElementById('certModalOverlay').classList.remove('open');
+      document.getElementById('certModalFrame').src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeCertModal(null);
+    });
   </script>
 </body>
+
 </html>
