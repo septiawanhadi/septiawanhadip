@@ -702,21 +702,168 @@
 
     /* Responsive */
     @media (max-width: 1024px) {
-      .hero-inner { grid-template-columns: 1fr 280px; }
-      .hero-name-col { grid-column: 1 / -1; text-align: center; align-items: center; }
-      .hero-name-col h1 { font-size: 38px; }
-      .badge { margin: 0 auto 16px; }
+      .hero-inner { 
+        grid-template-columns: 1fr 280px; 
+      }
+      .hero-name-col { 
+        grid-column: 1 / -1; 
+        text-align: center; 
+        align-items: center; 
+      }
+      .hero-name-col h1 { 
+        font-size: 38px; 
+      }
+      .badge { 
+        margin: 0 auto 16px; 
+      }
     }
 
     @media (max-width: 820px) {
-      .hero-inner { grid-template-columns: 1fr; padding: 28px; text-align: center; }
-      .hero-name-col { align-items: center; }
-      .video-card { height: 280px; max-width: 280px; margin: 0 auto; }
-      .hero-right-col { align-items: center; }
-      .two-col { grid-template-columns: 1fr; }
-      .cta { justify-content: center; }
-      h1 { font-size: 32px; }
-      .badge { margin: 0 auto 16px; }
+      .hero-inner { 
+        grid-template-columns: 1fr; 
+        padding: 28px; 
+        text-align: center; 
+      }
+      .hero-name-col { 
+        align-items: center; 
+      }
+      .video-card { 
+        height: 280px; 
+        max-width: 280px; 
+        margin: 0 auto; 
+      }
+      .hero-right-col { 
+        align-items: center; 
+      }
+      .hero-quote {
+        width: 100%;
+        max-width: 500px;
+        text-align: left;
+      }
+      .two-col { 
+        grid-template-columns: 1fr; 
+      }
+      .cta { 
+        justify-content: center; 
+      }
+      h1 { 
+        font-size: 32px; 
+      }
+      .badge { 
+        margin: 0 auto 16px; 
+      }
+    }
+
+    @media (max-width: 600px) {
+      /* Navigation Tabs Mobile */
+      .nav-tabs {
+        width: 100%;
+        gap: 6px;
+        padding: 4px;
+      }
+      .tab-btn {
+        padding: 8px 12px;
+        font-size: 11.5px;
+        gap: 4px;
+        flex: 1;
+        justify-content: center;
+      }
+      .nav-icon {
+        width: 13px;
+        height: 13px;
+      }
+
+      /* Card padding reduction */
+      .card {
+        padding: 24px;
+      }
+
+      /* Certificate Modal Mobile */
+      .cert-modal {
+        max-height: 85vh;
+      }
+      .cert-modal-body iframe {
+        min-height: 380px;
+      }
+      .cert-modal-header {
+        padding: 12px 16px;
+      }
+      .cert-modal-title strong {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 26px;
+      }
+      .subtitle {
+        font-size: 14px;
+      }
+      .profile-intro {
+        padding: 16px;
+        font-size: 13.5px;
+        line-height: 1.7;
+      }
+      .project {
+        padding: 18px;
+      }
+      .project h3 {
+        font-size: 16px;
+      }
+      .project-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .project-head .pill {
+        align-self: flex-start;
+      }
+
+      /* Timeline Mobile */
+      .timeline::before {
+        left: 15px;
+      }
+      .timeline-item {
+        padding-left: 36px;
+        margin-bottom: 24px;
+      }
+      .timeline-dot {
+        left: 5px;
+        top: 2px;
+      }
+      .timeline-content {
+        padding: 16px;
+      }
+      .timeline-title {
+        font-size: 14px;
+      }
+      .timeline-subtitle {
+        font-size: 11.5px;
+        margin-bottom: 6px;
+      }
+      .timeline-desc {
+        font-size: 11.5px;
+      }
+
+      /* Contact details font-size */
+      .contact-val {
+        font-size: 12px;
+      }
+
+      /* Dripcode Floating Promo Mobile Adjustments */
+      .dripcode-widget {
+        bottom: 12px;
+        left: 12px;
+        width: calc(100% - 24px);
+        padding: 12px 16px;
+      }
+      .dripcode-title {
+        font-size: 13px;
+      }
+      .dripcode-desc {
+        font-size: 11px;
+      }
     }
     
     /* Decorative Background Glowing Nebulas */
