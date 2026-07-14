@@ -1407,6 +1407,125 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
+    /* EDUCATION TIMELINE */
+    .timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 20px auto 0;
+      padding: 10px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 31px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent) 0%, rgba(6, 182, 212, 0.2) 100%);
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding-left: 70px;
+      animation: fadeInTimeline 0.5s ease-out;
+    }
+    
+    @keyframes fadeInTimeline {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: 20px;
+      top: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(13, 18, 30, 0.9);
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+      display: grid;
+      place-items: center;
+      z-index: 2;
+      transition: var(--transition);
+    }
+
+    .timeline-item:hover .timeline-dot {
+      border-color: var(--accent-secondary);
+      box-shadow: 0 0 16px rgba(6, 182, 212, 0.6);
+      transform: scale(1.15);
+    }
+
+    .timeline-dot::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-secondary);
+    }
+
+    .timeline-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      color: var(--accent-light);
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      width: fit-content;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .timeline-content {
+      padding: 28px;
+      border-radius: var(--radius-lg);
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow-glass);
+      backdrop-filter: blur(16px);
+      transition: var(--transition);
+    }
+
+    .timeline-item:hover .timeline-content {
+      border-color: rgba(99, 102, 241, 0.25);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 15px rgba(99, 102, 241, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .timeline-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0 0 6px;
+    }
+
+    .timeline-subtitle {
+      font-size: 13px;
+      color: var(--accent-secondary);
+      font-weight: 600;
+      margin: 0 0 14px;
+    }
+
+    .timeline-desc {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text-muted);
+      margin: 0;
+    }
 </style>
 </head>
 
@@ -1438,6 +1557,10 @@
       <button class="tab-btn" data-target="section-showcase" id="tab-showcase-btn">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
         <span data-lang-id="Showcase Karya" data-lang-en="Work Showcase">Showcase Karya</span>
+      </button>
+      <button class="tab-btn" data-target="section-education" id="tab-education-btn">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="nav-icon"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+        <span data-lang-id="Pendidikan" data-lang-en="Education">Pendidikan</span>
       </button>
     </nav>
 
@@ -1931,7 +2054,52 @@
         </section>
       </main>
     </div>
-  </div>
+  
+
+    <!-- SECTION 3: EDUCATION TAB -->
+    <div id="section-education" class="tab-content">
+      <main class="grid">
+        <section class="card">
+          <h2>
+            <span data-lang-id="Track Pendidikan" data-lang-en="Education Track">Track Pendidikan</span>
+            <span class="pill" data-lang-id="Akademik" data-lang-en="Academic">Akademik</span>
+          </h2>
+          <p class="subtitle" style="max-width: 100%; margin-bottom: 24px; text-transform: none; font-size: 14px; color: var(--text-muted);" data-lang-id="Perjalanan akademik dan riwayat studi formal saya." data-lang-en="My academic journey and formal studies history.">
+            Perjalanan akademik dan riwayat studi formal saya.
+          </p>
+
+          <div class="timeline">
+            <!-- Item 1: UPI -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-badge" data-lang-id="Kuliah • Aktif" data-lang-en="University • Active">Kuliah • Aktif</div>
+              <div class="timeline-content">
+                <h3 class="timeline-title">Universitas Pendidikan Indonesia (UPI)</h3>
+                <p class="timeline-subtitle" data-lang-id="Rekayasa Perangkat Lunak (2023 - Present)" data-lang-en="Software Engineering (2023 - Present)">Rekayasa Perangkat Lunak (2023 - Present)</p>
+                <p class="timeline-desc" data-lang-id="Saat ini menempuh studi aktif semester 7 dengan fokus pada rekayasa perangkat lunak, pengembangan sistem pintar, riset teknologi human-centered, dan metode penulisan ilmiah. Target kelulusan: Insha Allah tahun 2027." data-lang-en="Currently pursuing studies in the 7th semester with focus on software engineering, smart systems development, human-centered technology research, and scientific writing methods. Graduation target: Insha Allah 2027.">
+                  Saat ini menempuh studi aktif semester 7 dengan fokus pada rekayasa perangkat lunak, pengembangan sistem pintar, riset teknologi human-centered, dan metode penulisan ilmiah. Target kelulusan: Insha Allah tahun 2027.
+                </p>
+              </div>
+            </div>
+
+            <!-- Item 2: SMK Telesandi -->
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-badge" data-lang-id="Sekolah Menengah Kejuruan" data-lang-en="Vocational High School">Sekolah Menengah Kejuruan</div>
+              <div class="timeline-content">
+                <h3 class="timeline-title">SMK Telekomunikasi Telesandi Bekasi</h3>
+                <p class="timeline-subtitle" data-lang-id="Rekayasa Perangkat Lunak (2021 - 2023)" data-lang-en="Software Engineering (2021 - 2023)">Rekayasa Perangkat Lunak (2021 - 2023)</p>
+                <p class="timeline-desc" data-lang-id="Mempelajari dasar pemrograman (OOP), dasar pengembangan web, perancangan database relasional, logika algoritma, serta dasar-dasar jaringan komputer." data-lang-en="Studied programming fundamentals (OOP), web development basics, relational database design, logic algorithms, and computer network essentials.">
+                  Mempelajari dasar pemrograman (OOP), dasar pengembangan web, perancangan database relasional, logika algoritma, serta dasar-dasar jaringan komputer.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+</div>
 
   <script>
     // --- Logika Fallback Salin Email ---
