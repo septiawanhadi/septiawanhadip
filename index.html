@@ -759,19 +759,19 @@
       /* Navigation Tabs Mobile */
       .nav-tabs {
         width: 100%;
-        gap: 6px;
-        padding: 4px;
+        gap: 4px;
+        padding: 3px;
       }
       .tab-btn {
-        padding: 8px 12px;
-        font-size: 11.5px;
+        padding: 8px 6px;
+        font-size: 11px;
         gap: 4px;
         flex: 1;
         justify-content: center;
       }
       .nav-icon {
-        width: 13px;
-        height: 13px;
+        width: 12px;
+        height: 12px;
       }
 
       /* Card padding reduction */
@@ -877,31 +877,43 @@
     /* Extra micro screen safety (e.g. iPhone SE / 320px wide) */
     @media (max-width: 360px) {
       .wrap {
-        padding: 0 12px 40px;
+        padding: 0 8px 40px;
       }
       .card {
-        padding: 20px 14px;
+        padding: 20px 12px;
       }
       .hero-inner {
-        padding: 20px 14px;
+        padding: 20px 12px;
+      }
+      .nav-tabs {
+        gap: 2px;
+        padding: 2px;
+      }
+      .tab-btn {
+        padding: 6px 3px;
+        font-size: 9.5px;
+        gap: 2px;
+      }
+      .nav-icon {
+        display: none !important; /* Hide icon to ensure text never overflows */
       }
       .timeline-content {
-        padding: 20px 14px;
+        padding: 20px 12px;
       }
       .project {
-        padding: 14px;
+        padding: 12px;
       }
       .contact-grid {
-        gap: 12px;
+        gap: 10px;
       }
       .dripcode-widget {
-        width: calc(100% - 80px);
-        left: 10px;
-        bottom: 10px;
+        width: calc(100% - 75px);
+        left: 8px;
+        bottom: 8px;
       }
       .storm-control {
-        right: 10px;
-        bottom: 10px;
+        right: 8px;
+        bottom: 8px;
       }
     }
     
