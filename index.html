@@ -729,6 +729,7 @@
       }
       .video-card { 
         height: 280px; 
+        width: 100%;
         max-width: 280px; 
         margin: 0 auto; 
       }
@@ -791,6 +792,20 @@
       .cert-modal-title strong {
         font-size: 13px;
       }
+
+      /* Adjust bottom fixed controllers to avoid overlaps */
+      .storm-control {
+        bottom: 16px;
+        right: 16px;
+      }
+      
+      .dripcode-widget {
+        bottom: 16px;
+        left: 16px;
+        width: calc(100% - 90px);
+        max-width: 320px;
+        padding: 12px 16px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -850,19 +865,43 @@
       .contact-val {
         font-size: 12px;
       }
-
-      /* Dripcode Floating Promo Mobile Adjustments */
-      .dripcode-widget {
-        bottom: 12px;
-        left: 12px;
-        width: calc(100% - 24px);
-        padding: 12px 16px;
-      }
+      
       .dripcode-title {
         font-size: 13px;
       }
       .dripcode-desc {
         font-size: 11px;
+      }
+    }
+
+    /* Extra micro screen safety (e.g. iPhone SE / 320px wide) */
+    @media (max-width: 360px) {
+      .wrap {
+        padding: 0 12px 40px;
+      }
+      .card {
+        padding: 20px 14px;
+      }
+      .hero-inner {
+        padding: 20px 14px;
+      }
+      .timeline-content {
+        padding: 20px 14px;
+      }
+      .project {
+        padding: 14px;
+      }
+      .contact-grid {
+        gap: 12px;
+      }
+      .dripcode-widget {
+        width: calc(100% - 80px);
+        left: 10px;
+        bottom: 10px;
+      }
+      .storm-control {
+        right: 10px;
+        bottom: 10px;
       }
     }
     
