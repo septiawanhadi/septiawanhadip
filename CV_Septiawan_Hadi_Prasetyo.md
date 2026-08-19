@@ -60,6 +60,7 @@ Mahasiswa aktif Rekayasa Perangkat Lunak di Universitas Pendidikan Indonesia (UP
 ---
 
 ### SERTIFIKASI PROFESIONAL
+* **Google Analytics Certification (2026)** – *Skillshop* ([Verifikasi](https://www.credential.net/fed13720-838c-4f0e-93cc-63edadecc08c))
 * **Membangun Aplikasi Gen AI dengan Microsoft Azure** – *Dicoding Indonesia*
 * **Prompt Engineering untuk Software Developer** – *Dicoding Indonesia*
 * **Belajar Machine Learning untuk Pemula** – *Dicoding Indonesia*

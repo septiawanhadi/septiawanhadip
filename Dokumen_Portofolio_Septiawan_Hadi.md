@@ -112,21 +112,20 @@ Berikut adalah daftar publikasi ilmiah dan tulisan akademis/artikel yang telah s
 
 ## 🏅 SERTIFIKASI PROFESIONAL
 
-Saya aktif memperbarui keahlian melalui sertifikasi kredibel dari Dicoding Indonesia (Partner Google/Microsoft):
-
-1. **Membangun Aplikasi Gen AI dengan Microsoft Azure** (AI Generatif, Cloud)
-2. **Prompt Engineering untuk Software Developer** (AI Interaction, Rekayasa Prompt)
-3. **Belajar Machine Learning untuk Pemula** (Kecerdasan Buatan, ML Models)
-4. **Data Science dengan Microsoft Fabric** (Analisis Data, ETL)
-5. **Belajar Data Science** (Statistika, Data Processing)
-6. **Belajar Fundamental Pemrosesan Data** (Data Engineering)
-7. **Belajar Dasar Structured Query Language (SQL)** (Manajemen Basis Data Relasional)
-8. **Belajar Dasar Google Cloud** (Cloud Computing, GCP Services)
-9. **Belajar Dasar AI** (Konsep Dasar Kecerdasan Buatan)
-10. **Memulai Pemrograman dengan Python** (Logika OOP, Python Basics)
-11. **Financial Literacy** (Literasi Keuangan)
-
----
+1. **Google Analytics Certification (2026)** – *Skillshop* ([Verifikasi](https://www.credential.net/fed13720-838c-4f0e-93cc-63edadecc08c))
+2. Saya aktif memperbarui keahlian melalui sertifikasi kredibel dari Dicoding Indonesia (Partner Google/Microsoft):
+3. **Membangun Aplikasi Gen AI dengan Microsoft Azure** (AI Generatif, Cloud)
+4. **Prompt Engineering untuk Software Developer** (AI Interaction, Rekayasa Prompt)
+5. **Belajar Machine Learning untuk Pemula** (Kecerdasan Buatan, ML Models)
+6. **Data Science dengan Microsoft Fabric** (Analisis Data, ETL)
+7. **Belajar Data Science** (Statistika, Data Processing)
+8. **Belajar Fundamental Pemrosesan Data** (Data Engineering)
+9. **Belajar Dasar Structured Query Language (SQL)** (Manajemen Basis Data Relasional)
+10. **Belajar Dasar Google Cloud** (Cloud Computing, GCP Services)
+11. **Belajar Dasar AI** (Konsep Dasar Kecerdasan Buatan)
+12. **Memulai Pemrograman dengan Python** (Logika OOP, Python Basics)
+13. **Financial Literacy** (Literasi Keuangan)
+14. ---
 
 ## 📞 KONTAK & SALURAN KOMUNIKASI
 
